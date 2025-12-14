@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Stammering Practice — By Priyanka Sharma</title>
+<meta name="color-scheme" content="dark">
+<style>
+  /* ---------------- Tokens ---------------- */
+  :root{
+    --bg-1: #04050a;
+    --card: rgba(20,20,24,0.55);
+    --glass-border: rgba(255,255,255,0.04);
+    --muted: #98d7dc;
+    --accent-a: #00f0ff;
+    --accent-b: #8b5cff;
+    --accent-c: #50e3c2;
+    --text: #e9fbff;
+    --glass-blur: 14px;
+    --radius: 16px;
+  }
+
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;background:
+      radial-gradient(900px 300px at 10% 10%, rgba(0,240,255,0.03), transparent 8%),
+      radial-gradient(700px 300px at 90% 80%, rgba(139,92,255,0.02), transparent 8%),
+      var(--bg-1);
+    color:var(--text); font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+    -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+    padding:18px;
+  }
+  .small {
+    font-size: 12px;}
+
+  /* ---------- App shell ---------- */
+  .shell {
+    max-width:1400px;
+    min-height:90vh;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns: 360px 1fr;
+    gap:24px;
+    align-items:start;
+  }
+  @media (max-width:880px){
+    .shell{ grid-template-columns: 1fr; padding-bottom:84px; }
+  }
+
+  /* ---------- Left Panel ---------- */
+  .panel {
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border-radius: calc(var(--radius) + 4px);
+    padding:20px;
+    border:1px solid var(--glass-border);
+    backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+    box-shadow: 0 18px 50px rgba(0,0,0,0.6);
+  }
+
+  .brand {
+    display:flex; gap:12px; align-items:center;
+  }
+  .badge {
+    width:54px; height:54px; border-radius:12px;
+    background: linear-gradient(135deg, var(--accent-a), var(--accent-b));
+    box-shadow: 0 8px 30px rgba(75,0,255,0.12), 0 2px 8px rgba(0,240,255,0.06) inset;
+    display:flex;align-items:center;justify-content:center;font-weight:800;color:#001;font-size:18px;
+  }
+  .brand h1{ margin:0; font-size:16px; letter-spacing:-0.2px;}
+  .brand p{ margin:0; font-size:12px; color:var(--muted); margin-top:4px }
+
+  .section { margin-top:18px; }
+  label { display:block; color:#bff7fb; margin-bottom:8px; font-weight:700; font-size:13px; }
+  select, input[type=range] {
+    width:100%; padding:12px 14px; border-radius:12px; border:1px solid rgba(255,255,255,0.04);
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    color:var(--text); font-size:15px; appearance:none;
+    box-shadow: inset 0 6px 18px rgba(0,0,0,0.45);
+    border-color: rgba(0,240,255,0.18);
+
+  }
+
+  select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  color: var(--text);
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow: inset 0 6px 18px rgba(0,0,0,0.45);
+  border-color: rgba(0,240,255,0.18);
+    
+
+  /* Custom caret */
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg width='12' height='7' viewBox='0 0 12 7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%2300f0ff' stroke-width='2'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 12px 7px;
+  }
+
+
+  select:focus, input[type=range]:focus { outline:none; box-shadow:0 0 0 6px rgba(0,240,255,0.04); border-color: rgba(0,240,255,0.18) }
+
+  /* ---------- Stage ---------- */
+  .stage {
+    border-radius:calc(var(--radius) + 4px);
+    padding:26px;
+    min-height:420px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
+    border:1px solid rgba(255,255,255,0.03);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+    display:flex;flex-direction:column;align-items:stretch;justify-content:center;
+    position:relative; overflow:hidden;
+  }
+
+  .card {
+    margin:0 auto; width:100%; max-width:820px;
+    background: linear-gradient(180deg, rgba(0,0,0,0.14), rgba(255,255,255,0.01));
+    border-radius:14px; padding:28px; display:flex;flex-direction:column;gap:18px;
+    align-items:center; border:1px solid rgba(255,255,255,0.03);
+  }
+
+  /* Word Display */
+  .word {
+    font-size:78px; font-weight:900; margin:0; line-height:1; letter-spacing:-0.02em;
+    -webkit-text-stroke:1.6px rgba(0,240,255,0.95);
+    color:transparent;
+    background: linear-gradient(90deg, var(--accent-a), var(--accent-b));
+    -webkit-background-clip:text; background-clip:text; background-size:0% 100%;
+    transition: transform .18s ease;
+  }
+  .word.reveal { animation: appWordFill 4s ease forwards; }
+  @keyframes appWordFill {
+    0%{ background-size:0% 100%; opacity:0; transform:translateY(6px) scale(.995) }
+    10%{ opacity:1 }
+    60%{ background-size:66% 100%; }
+    100%{ background-size:100% 100%; }
+  }
+
+  .progress { width:100%; height:8px; background: rgba(255,255,255,0.03); border-radius:999px; overflow:hidden; margin-top:6px;}
+  .progress .bar { width:0%; height:100%; background: linear-gradient(90deg,var(--accent-a),var(--accent-c)); transition: width 4s linear; }
+
+  /* Buttons */
+  .controls { display:flex; gap:10px; margin-top:10px; }
+  .btn {
+    padding:10px 12px; border-radius:10px; cursor:pointer; border:none;
+    background:rgba(255,255,255,0.05); color:var(--text);
+  }
+  .btn.primary { background: linear-gradient(90deg, var(--accent-a), var(--accent-b)); color:#001; }
+  .btn.ghost { background: transparent; border:1px dashed rgba(255,255,255,0.04); color:var(--muted); }
+
+  .not-available { font-size:20px; color:#9fd6d7; font-weight:800; text-align:center; padding:18px; }
+
+  @media (max-width:880px){
+    .word{ font-size:44px; }
+    .panel{ order:1 }
+    .stage{ order:2; padding:18px; min-height:300px }
+  }
+
+/* -------- Improved Footer -------- */
+.app-footer {
+  width: 100%;
+  padding: 12px 10px;
+  margin: 40px auto;
+  max-width:1400px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  background: rgba(255, 255, 255, 0.015);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(6px);
+}
+
+.app-footer p {
+  margin: 0;
+  padding: 4px 0;
+}
+
+.app-footer a {
+  color: var(--accent-a);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.app-footer a:hover {
+  opacity: 0.8;
+}
+
+
+
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- LEFT PANEL -->
+  <div class="panel">
+    <div class="brand">
+      <div class="badge">PS</div>
+      <div>
+        <h1>Stammering Practice</h1>
+        <p>Type → Sub-type → Profession • App mode</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <label>Type of Stammering</label>
+      <select id="typeSelect"><option value="">-- Select Type --</option>
+        <option value="repetition">Repetition</option>
+        <option value="prolongation">Prolongation</option>
+        <option value="blocks">Blocks</option>
+        <option value="broken">Broken Words</option>
+        <option value="fillers">Fillers</option>
+        <option value="revision">Revisions</option>
+        <option value="cluttering">Cluttering</option>
+      </select>
+      <div class="small">Pick a general feature to practice</div>
+    </div>
+
+    <div class="section">
+      <label>Sub-Type</label>
+      <select id="subTypeSelect"><option value="">-- Select Sub-Type --</option></select>
+    </div>
+
+    <div class="section">
+      <label>Profession</label>
+      <select id="professionSelect">
+        <option value="">-- Select Profession --</option>
+        <option value="doctor">Doctor</option>
+        <option value="advocate">Advocate</option>
+        <option value="engineer">Engineer</option>
+        <option value="teacher">Teacher / Professor</option>
+        <option value="student">Student</option>
+        <option value="tvactor">TV Actor</option>
+        <option value="singer">Singer</option>
+        <option value="other">Others</option>
+      </select>
+    </div>
+
+    <div class="section">
+      <label>Reveal Speed</label>
+      <input id="speedRange" type="range" min="1" max="6" step="0.5" value="4" />
+      <div class="small" id="speedIcon">🚶</div>
+    </div>
+
+    
+  </div>
+
+  <!-- RIGHT STAGE -->
+  <div class="stage">
+    <div class="card">
+
+      <!-- Meta -->
+      <div class="meta-row" style="width:100%; display:flex; justify-content:space-between;">
+        <div>
+          <h2 id="metaType">Type: —</h2>
+          <p id="metaSub">Sub-Type: —</p>
+        </div>
+        <div style="text-align:right">
+          <div class="small-muted">Progress</div>
+          <div class="progress"><div class="bar" id="progressBar"></div></div>
+        </div>
+      </div>
+
+      <!-- Word Display -->
+      <div id="outputCard">
+        <div id="wordBoxInner"></div>
+      </div>
+
+      <!-- ⭐ MOVED CONTROLS HERE ⭐ -->
+      <div class="controls">
+        <button class="btn primary" id="playBtn">▶ Play</button>
+        <button class="btn" id="pauseBtn">⏸ Pause</button>
+        <button class="btn ghost" id="nextBtn">⏭ Next</button>
+        <button class="btn ghost" id="resetBtn">↺ Reset</button>
+      </div>
+
+    </div>
+    <div class="small center">Tip: speak as the word fills — each reveal fills left→right.</div>
+  </div>
+   
+</div>
+  
+
+<!-- FULL JS (unchanged except removed speaker/player parts) -->
+<script>
+/* ============================
+   Data
+============================= */
+const data = {
+  repetition: {
+    "Sound Repetition": {
+      doctor: ["scan","syringe","scope","saline","stent","swab","scanbed","sample","scale","stat"],
+      advocate: ["section","sign","suit","statute","state","stage","send","serve","seal","see"],
+      engineer: ["sensor","signal","server","switch","socket","segment","solder","scan","scale","sample"],
+      teacher: ["study","syllabus","subject","session","sentence","solve","speak","score","spell","search"],
+      student: ["study","solve","submit","score","skill","school","sample","session","spell","search"],
+      tvactor: ["scene","script","shot","say","scene2","sound","signal","speak","stage","strike"],
+      singer: ["sing","scale","sound","sustain","solo","soft","slide","shimmer","sample","signal"],
+      other: ["start","stop","see","say","show","sell","serve","shift","share","shine"]
+    },
+    "Syllable Repetition": {
+      doctor: ["pa-pa-tient","in-in-jection","ta-ta-blet","re-re-port","di-di-agnose","op-op-tion","cl-clinic","tu-tu-bes","va-va-lve","ec-ec-g"],
+      advocate: ["pe-pe-tition","ar-ar-gument","ap-ap-peal","cli-cli-ent","do-do-cument","ju-ju-dge","st-statement","he-he-aring","ve-ve-rdict","co-co-urt"],
+      engineer: ["ci-ci-rcuit","de-de-sign","so-software","mo-mo-dule","se-se-nsor","ar-ar-chive","te-te-sting","sy-sy-stem","ne-ne-twork","pr-pr-ototype"],
+      teacher: ["le-le-sson","ch-cha-pter","su-subject","no-no-tebook","ex-ex-am","re-re-vision","pr-practice","as-as-ignment","gr-gra-mmar","th-theory"],
+      student: ["ho-ho-mework","pro-pro-ject","ex-ex-am","no-no-tebook","re-re-vision","sta-station","le-le-sson","cl-cl-ass","su-su-bject","ta-ta-ble"],
+      tvactor: ["di-di-alogue","sc-scene","sc-sc-ript","ac-ac-tion","au-au-diton","pe-pe-rformance","ma-ma-keup","ex-ex-pression","ch-ch-aracter","di-di-rector"],
+      singer: ["me-me-lody","ry-ry-thm","pi-pitch","ho-ho-nor","no-no-te","so-so-nd","li-li-yrics","vo-vo-cal","ch-chorus","re-re-cord"],
+      other: ["he-he-llo","ma-ma-rket","of-of-fice","tr-tra-vel","fa-fa-mily","sh-shopping","mo-mo-rning","fr-friend","di-dinner","mu-music"]
+    },
+    "Word Repetition": {
+      doctor: ["pain", "pressure", "treatment", "test", "follow-up", "medicine", "monitor", "risk", "symptom", "improve"],
+      advocate: ["evidence", "claim", "rights", "court", "case", "contract", "issue", "proof", "legal", "argument"],
+      engineer: ["system", "process", "test", "design", "error", "function", "model", "update", "build", "check"],
+      teacher: ["remember", "important", "example", "practice", "review", "focus", "repeat", "explain", "check", "understand"],
+      student: ["question", "example", "notes", "assignment", "understand", "help", "practice", "class", "topic", "explain"],
+      tvactor: ["line", "scene", "take", "emotion", "action", "camera", "timing", "cue", "script", "character"],
+      singer: ["note", "pitch", "voice", "rhythm", "tempo", "breath", "tone", "repeat", "practice", "chorus"],
+      other: ["really", "okay", "right", "just", "maybe", "again", "wait", "look", "actually", "sure"]
+    },
+    "Phrase Repetition": {
+      doctor: [
+        "take a deep breath","how are you feeling","follow this routine","let me check","come back for review",
+        "take your medicine","drink plenty of water","let me explain","tell me your symptoms","don't worry"
+      ],
+      advocate: [
+        "according to the law","in this case","as per the section","let me clarify","based on evidence",
+        "in my opinion","as your counsel","we can appeal","facts of the case","legal rights involved"
+      ],
+      engineer: [
+        "let's run a test","check the system","we need to debug","let’s review the design","update the version",
+        "run the process again","check the logs","optimize the code","let me verify","it’s not working"
+      ],
+      teacher: [
+        "pay attention","follow the instructions","listen carefully","let’s practice this","remember this point",
+        "repeat after me","focus on this topic","check your work","understand the concept","read the question"
+      ],
+      student: [
+        "I have a doubt","can you explain again","I don’t understand","one more example","is this correct",
+        "what do we do next","can you repeat that","how do I solve this","I need help","what does this mean"
+      ],
+      tvactor: [
+        "what’s my line","start from the top","let’s do another take","how’s my timing","what’s the emotion",
+        "check the camera","let’s rehearse again","give me the cue","run the scene","I need direction"
+      ],
+      singer: [
+        "start from the chorus","let’s try again","follow the rhythm","keep the tempo","take a deep breath",
+        "hit the note","repeat the line","let’s harmonize","from the top","slow it down"
+      ],
+      other: [
+        "one second","hold on","wait a minute","let me check","are you sure",
+        "that’s okay","I think so","tell me again","do it again","let's go"
+      ]
+    }
+  },
+  prolongation: {
+    "Voiced Prolongation": {
+      doctor: ["mmmmmedicine","aaaaarm","rrrrreport","lllllungs","vvvvvital"],
+      engineer: ["rrrrrobot","vvvvvoltage","mmmmmodule","sssssignal"],
+      student: ["ssssstudy","mmmmmaths","rrrrreading"],
+      teacher: ["llllllllesson","mmmmmaterial","sssssubject"],
+      advocate: ["lllllaw","rrrrrreason","vvvvverdict"],
+      tvactor: ["mmmmmmic","ssssscript","rrrrrole"],
+      singer: ["mmmmmelody","sssssong","vvvvvvoice"],
+      other: ["ssssstart","mmmmmove","rrrrrun"]
+    },
+    "Voiceless Prolongation": {
+      doctor: ["ssssscan","fffffirst","tttttest"],
+      engineer: ["sssssystem","ffffforce","tttttool"],
+      student: ["ssssstudy","fffffocus","ttttext"],
+      teacher: ["ssssslesson","ffffformat","ttttopic"],
+      advocate: ["ssssstatute","fffffile","ttttrial"],
+      tvactor: ["ssssscene","fffffade","tttttake"],
+      singer: ["sssssong","fffffill","tttttone"],
+      other: ["ssssstop","fffffast","tttttime"]
+    }
+  },
+  blocks: {
+    "Silent Block": {
+      doctor: ["(…patient)","(…scan)","(…report)","(…check)","(…wait)"],
+      engineer: ["(…compile)","(…deploy)","(…debug)","(…test)","(…run)"],
+      student: ["(…answer)","(…think)","(…write)","(…read)","(…speak)"],
+      teacher: ["(…explain)","(…lecture)","(…review)","(…pause)","(…listen)"],
+      advocate: ["(…object)","(…respond)","(…address)","(…present)","(…plead)"],
+      tvactor: ["(…action)","(…cut)","(…wait)","(…silent)","(…breathe)"],
+      singer: ["(…hold)","(…breathe)","(…wait)","(…note)","(…rest)"],
+      other: ["(…pause)","(…think)","(…wait)","(…stop)","(…silent)"]
+    },
+    "Audible Block": {
+      doctor: ["uh…doctor","um…clinic","eh…scan","ah…report","uh…nurse"],
+      engineer: ["uh…code","um…deploy","eh…test","ah…fix","uh…model"],
+      student: ["uh…answer","um…homework","eh…exam","ah…project","uh…study"],
+      teacher: ["uh…lesson","um…topic","eh…grammar","ah…explain","uh…question"],
+      advocate: ["uh…case","um…evidence","eh…witness","ah…plea","uh…judge"],
+      tvactor: ["uh…line","um…take","eh…action","ah…scene","uh…mark"],
+      singer: ["uh…note","um…sing","eh…tone","ah…pitch","uh…chorus"],
+      other: ["uh…hello","um…sorry","eh…wait","ah…okay","uh…thanks"]
+    },
+    "Word Stretching": {
+      doctor: ["soooo","welllll","ooookay","riiiight","breeeathe","staaay calm","heeeere","sloooowly","gooood","feeeling"],
+      advocate: ["youuuur","weeeell","soooo","riiiight","leeegal","claaaim","truuuuth","faaaacts","cleaaaar","prooof"],
+      engineer: ["looooad","cheeck","reeeeboot","soooftware","teeeest","staaart","ruuuun","waaait","syyyystem","cooode"],
+      teacher: ["reeepeat","foooocus","soooo","goooood","liiisten","reeeead","oooookay class","waaaait","aaagain","uunderstand"],
+      student: ["pleaaase","waaait","maaaam","siirrr","aaagain","I dooon't get it","heeeelp","reeeepeat","ooookay","riiiight"],
+      tvactor: ["liiine","aaaaaction","reeeeady","sloooow","faaster","sceeene","taaake","hooold","staaaart","cuuue"],
+      singer: ["soooo","nooote","haaaarmony","breeeathe","voooice","sloooow","teeeempo","riiiise","faalll","gloooow"],
+      other: ["soooo","riiiight","ooookay","waaaait","heeeey","noooo","yeeees","stoooop","goooood","coooome"]
+    }
+  },
+  broken: {
+    "Silent Break": {
+      doctor: ["pa—tient","me—dicine","di—agnose","re—port","su—rgerY"],
+      student: ["ex—am","pro—ject","stu—dy","re—vision","no—tes"],
+      teacher: ["les—son","ch—apter","ex—plain","re—view","te—ach"]
+    },
+    "Audible Break": {
+      doctor: ["pa—(uh)—tient","me—(um)—dicine","di—(eh)—agnose"],
+      student: ["ex—(uh)—am","pro—(um)—ject","stu—(eh)—dy"]
+    },
+    "Tension Break": {
+      doctor: ["pa—(pause)—tient","re—(tension)—port"],
+      student: ["ex—(pause)—am","pro—(tension)—ject"]
+    }
+  },
+  fillers: {
+    "Natural Fillers": {
+      doctor: ["um","uh","well","so","okay"],
+      advocate: ["um","uh","well","so","look"],
+      student: ["um","uh","like","you know","well"],
+      other: ["um","uh","okay","like","you know"]
+    },
+    "Avoidance Fillers": {
+      doctor: ["actually","basically","maybe","perhaps","right"],
+      advocate: ["actually","basically","perhaps","obviously","clearly"],
+      student: ["maybe","kinda","actually","sorta","like"],
+      other: ["maybe","actually","kinda","sorta","basically"]
+    }
+  },
+  revision: {
+    "Restarts": {
+      doctor: ["I need — I need to check","We should — we should review","Call — call the nurse"],
+      engineer: ["We must — we must test","Run — run the build","Deploy — deploy later"],
+      teacher: ["You will — you will learn","Read — read the chapter","Try — try the exercise"],
+      student: ["I will — I will study","I did — I did the assignment"]
+    },
+    "Substitutions": {
+      doctor: ["tablet → pill","injection → shot","report → file"],
+      student: ["exam → test","homework → assignment","project → task"]
+    }
+  },
+  cluttering: {
+    "Fast Rate": {
+      teacher: ["finishfast","talkfast","rushthrough","speedread","quicknote"],
+      student: ["rushstudy","fastwrite","speedsolve","fastread","hurryup"]
+    },
+    "Syllable Drops": {
+      doctor: ["pa-tient","di-agnosis","ther-a-pist"],
+      student: ["ex-am","pro-ject","home-work"]
+    },
+    "Disorganized Language": {
+      other: ["topic… notes… then… explain…","point… slide… then… stop"]
+    }
+  }
+};
+
+/* ============================
+   Elements
+============================= */
+const typeSelect = document.getElementById('typeSelect');
+const subTypeSelect = document.getElementById('subTypeSelect');
+const professionSelect = document.getElementById('professionSelect');
+const wordBoxInner = document.getElementById('wordBoxInner');
+const metaType = document.getElementById('metaType');
+const metaSub = document.getElementById('metaSub');
+const progressBar = document.getElementById('progressBar');
+const playBtn = document.getElementById('playBtn');
+const pauseBtn = document.getElementById('pauseBtn');
+const nextBtn = document.getElementById('nextBtn');
+const resetBtn = document.getElementById('resetBtn');
+const speedRange = document.getElementById('speedRange');
+const speedIcon = document.getElementById('speedIcon');
+
+let playInterval = null;
+let currentList = [];
+let currentIndex = 0;
+let isPlaying = false;
+
+/* ============================
+   Functions
+============================= */
+
+function updateSpeedIcon(){
+  const v = Number(speedRange.value);
+
+  if (v >= 5.5) speedIcon.textContent = '🐌';      // very slow
+  else if (v >= 4.5) speedIcon.textContent = '🐢';      // very slow
+  else if (v >= 3.5) speedIcon.textContent = '🚶'; // medium
+  else if (v >= 2.5) speedIcon.textContent = '🏃'; // medium
+  else speedIcon.textContent = '🐇';             // fast
+} 
+  
+function showNotAvailable(){
+  wordBoxInner.innerHTML = '<div class="not-available">No words available for this selection</div>';
+  progressBar.style.width = '0%';
+  metaType.textContent = 'Type: —';
+  metaSub.textContent = 'Sub-Type: —';
+}
+
+function updateMeta(){
+  metaType.textContent = 'Type: ' + (typeSelect.value || '—');
+  metaSub.textContent = 'Sub-Type: ' + (subTypeSelect.value || '—');
+}
+
+function loadSubTypes(){
+  const t = typeSelect.value;
+  subTypeSelect.innerHTML = '<option value="">-- Select Sub-Type --</option>';
+  stopPractice();
+  updateMeta();
+
+  if(!t || !data[t]) { showNotAvailable(); return; }
+  Object.keys(data[t]).forEach(sub=>{
+    const opt=document.createElement('option');
+    opt.value=sub; opt.textContent=sub;
+    subTypeSelect.appendChild(opt);
+  });
+  showNotAvailable();
+}
+
+function startPractice(){
+  stopPractice();
+  const t = typeSelect.value;
+  const sub = subTypeSelect.value;
+  const prof = professionSelect.value;
+
+  if(!t||!sub||!prof){ showNotAvailable(); return; }
+  updateMeta();
+
+  const list = data[t]?.[sub]?.[prof] || [];
+  if(!list.length){ showNotAvailable(); return; }
+
+  currentList = list.slice();
+  currentIndex = 0;
+  playSequence();
+}
+
+function playSequence(){
+  stopPractice();
+  if(!currentList.length) return;
+
+  isPlaying = true;
+  showNextWord();
+
+  const seconds = Number(speedRange.value) || 4;
+  playInterval = setInterval(showNextWord, (seconds * 1000) + 200);
+
+  reflectState();
+}
+
+function pauseSequence(){
+  isPlaying = false;
+  if(playInterval){ clearInterval(playInterval); playInterval=null; }
+  reflectState();
+}
+
+function stopPractice(){
+  isPlaying = false;
+  if(playInterval){ clearInterval(playInterval); playInterval=null; }
+  progressBar.style.width = '0%';
+  reflectState();
+}
+
+function resetAll(){
+  stopPractice();
+  typeSelect.selectedIndex = 0;
+  subTypeSelect.innerHTML = '<option value="">-- Select Sub-Type --</option>';
+  professionSelect.selectedIndex = 0;
+  wordBoxInner.innerHTML = '';
+  metaType.textContent="Type: —";
+  metaSub.textContent="Sub-Type: —";
+}
+
+function nextWord(){
+  if(!currentList.length) return;
+  currentIndex = (currentIndex + 1) % currentList.length;
+  showSpecificWord();
+}
+
+function showNextWord(){
+  const w = currentList[currentIndex];
+  currentIndex = (currentIndex + 1) % currentList.length;
+  displayWord(w);
+}
+
+function showSpecificWord(){
+  displayWord(currentList[currentIndex]);
+}
+
+function displayWord(text){
+  wordBoxInner.innerHTML = '';
+  const span = document.createElement('span');
+  span.className='word';
+  span.textContent=text;
+  wordBoxInner.appendChild(span);
+
+  span.classList.remove('reveal');
+  void span.offsetWidth;
+  span.classList.add('reveal');
+
+  const seconds = Number(speedRange.value);
+  progressBar.style.transition='none';
+  progressBar.style.width='0%';
+  void progressBar.offsetWidth;
+  progressBar.style.transition=`width ${seconds}s linear`;
+  progressBar.style.width='100%';
+}
+
+function reflectState(){
+  playBtn.textContent = isPlaying ? '▶ Playing' : '▶ Play';
+}
+
+
+/* ============================
+   Events
+============================= */
+typeSelect.addEventListener('change', loadSubTypes);
+subTypeSelect.addEventListener('change', startPractice);
+professionSelect.addEventListener('change', startPractice);
+
+playBtn.addEventListener('click', ()=> isPlaying ? pauseSequence() : playSequence());
+pauseBtn.addEventListener('click', pauseSequence);
+nextBtn.addEventListener('click', nextWord);
+resetBtn.addEventListener('click', resetAll);
+
+speedRange.addEventListener('input', ()=>{
+  updateSpeedIcon();
+  if(isPlaying){ pauseSequence(); playSequence(); }
+});
+
+showNotAvailable();
+reflectState();
+</script>
+
+<!-- FOOTER -->
+<footer class="app-footer">
+  <p>
+    © 2025 • Designed & Developed by 
+    <a href="https://www.artsbypraveen.in/" target="_blank">Praveen Sharma</a>
+  </p>
+</footer>
+
+
+
+
+</body>
+</html>
