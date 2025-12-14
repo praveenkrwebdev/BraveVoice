@@ -1,3 +1,4 @@
+/* ---------- Base Reset ---------- */
 * {
   box-sizing: border-box;
   font-family: system-ui, -apple-system, BlinkMacSystemFont;
@@ -5,71 +6,113 @@
 
 body {
   margin: 0;
-  height: 100vh;
+  min-height: 100vh;
   background: linear-gradient(135deg, #6366f1, #22d3ee);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* ---------- Container ---------- */
+.auth-container {
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.auth-container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
+/* ---------- Card ---------- */
 .auth-card {
   width: 360px;
-  padding: 32px;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(20px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+  padding: 34px 32px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(22px);
+  box-shadow:
+    0 20px 40px rgba(0,0,0,0.25),
+    inset 0 1px 1px rgba(255,255,255,0.25);
   color: white;
+  animation: fadeSlideIn 0.8s ease forwards;
+  transform: translateY(24px) scale(0.96);
+  opacity: 0;
+}
+
+@keyframes fadeSlideIn {
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
 }
 
 .auth-card h2 {
   text-align: center;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
+  font-size: 22px;
 }
 
 .subtitle {
   text-align: center;
   opacity: 0.85;
-  margin-bottom: 24px;
-}
-
-input {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 14px;
-  border-radius: 10px;
-  border: none;
-  outline: none;
+  margin-bottom: 26px;
   font-size: 14px;
 }
 
+/* ---------- Inputs ---------- */
+input {
+  width: 100%;
+  padding: 13px 14px;
+  margin-bottom: 14px;
+  border-radius: 12px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  transition: box-shadow 0.3s ease, transform 0.15s ease;
+}
+
+input::placeholder {
+  color: #6b7280;
+}
+
+input:focus {
+  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.5);
+  transform: scale(1.01);
+}
+
+/* ---------- Buttons ---------- */
 button {
   width: 100%;
-  padding: 12px;
-  border-radius: 10px;
+  padding: 13px;
+  border-radius: 12px;
   border: none;
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
 }
 
 button.primary {
   background: #111827;
   color: white;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+}
+
+button.primary:hover {
+  background: #020617;
 }
 
 button.secondary {
   background: transparent;
   color: white;
-  border: 1px solid rgba(255,255,255,0.4);
-  margin-bottom: 16px;
+  border: 1px solid rgba(255,255,255,0.45);
+  margin-bottom: 18px;
+}
+
+button.secondary:hover {
+  background: rgba(255,255,255,0.15);
 }
 
 button.google {
@@ -77,18 +120,61 @@ button.google {
   color: #111827;
 }
 
-.divider {
-  text-align: center;
-  margin: 14px 0;
-  opacity: 0.7;
-  font-size: 13px;
+button.google:hover {
+  background: #f3f4f6;
 }
 
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(0,0,0,0.25);
+}
+
+button:active {
+  transform: scale(0.97);
+  box-shadow: none;
+}
+
+/* ---------- Divider ---------- */
+.divider {
+  text-align: center;
+  margin: 16px 0;
+  opacity: 0;
+  font-size: 13px;
+  animation: fadeIn 1.2s ease forwards;
+}
+
+@keyframes fadeIn {
+  to { opacity: 0.7; }
+}
+
+/* ---------- Error ---------- */
 .error {
-  margin-top: 12px;
+  margin-top: 14px;
   color: #fecaca;
   font-size: 13px;
   text-align: center;
+  min-height: 16px;
 }
 
+/* ---------- Footer ---------- */
+.auth-footer {
+  position: fixed;
+  bottom: 14px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+  color: rgba(255,255,255,0.75);
+  letter-spacing: 0.3px;
+}
 
+.auth-footer a {
+  color: #22d3ee;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.auth-footer a:hover {
+  opacity: 0.85;
+  text-decoration: underline;
+}
