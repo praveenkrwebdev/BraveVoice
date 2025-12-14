@@ -7,29 +7,31 @@ import {
 const emailSpan = document.getElementById("userEmail");
 const avatarImg = document.getElementById("userAvatar");
 
-// 🔐 Protect page + show user info
+// 🔐 Auth Guard (NO FLASH FIX)
 onAuthStateChanged(auth, (user) => {
   if (!user) {
-    window.location.href = "login.html";
+    window.location.replace("login.html");
     return;
   }
 
-  // Show email
+  // ✅ Show page ONLY after auth confirmed
+  document.body.style.visibility = "visible";
+
   if (emailSpan) {
     emailSpan.textContent = user.email || "Anonymous";
   }
 
-  // Show avatar
   if (avatarImg) {
     avatarImg.src = user.photoURL
       ? user.photoURL
-      : "https://ui-avatars.com/api/?name=" + encodeURIComponent(user.email || "User");
+      : "https://ui-avatars.com/api/?name=" +
+        encodeURIComponent(user.email || "User");
   }
 });
 
 // 🚪 Logout
 window.logout = () => {
   signOut(auth).then(() => {
-    window.location.href = "login.html";
+    window.location.replace("login.html");
   });
 };
