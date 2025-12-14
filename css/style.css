@@ -57,3 +57,83 @@ input, button {
   color: #f87171;
   margin-top: 10px;
 }
+
+/* ---------- Animations ---------- */
+
+/* Card entrance */
+.auth-card {
+  animation: fadeSlideIn 0.8s ease forwards;
+  transform: translateY(20px) scale(0.98);
+  opacity: 0;
+}
+
+@keyframes fadeSlideIn {
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+/* Input focus glow */
+input {
+  transition: box-shadow 0.3s ease, transform 0.15s ease;
+}
+
+input:focus {
+  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.45);
+  transform: scale(1.01);
+}
+
+/* Buttons hover / press */
+button {
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+button:active {
+  transform: translateY(0) scale(0.97);
+  box-shadow: none;
+}
+
+/* Google button special */
+button.google:hover {
+  background: #f9fafb;
+}
+
+/* Divider animation */
+.divider {
+  animation: fadeIn 1.2s ease forwards;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  to { opacity: 0.7; }
+}
+
+/* ---------- Footer ---------- */
+.auth-footer {
+  position: fixed;
+  bottom: 14px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+  color: rgba(255,255,255,0.75);
+  letter-spacing: 0.3px;
+}
+
+.auth-footer a {
+  color: #22d3ee;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.auth-footer a:hover {
+  opacity: 0.85;
+  text-decoration: underline;
+}
+
