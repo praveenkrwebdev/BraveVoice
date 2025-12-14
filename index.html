@@ -188,11 +188,63 @@
   opacity: 0.8;
 }
 
+  /* ---------- Auth Bar ---------- */
+#authBar {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  z-index: 9999;
+}
+
+  #userAvatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.08);
+}
+
+
+#authBar span {
+  font-size: 13px;
+  color: #9fd6d7;
+  font-weight: 600;
+}
+
+#authBar button {
+  padding: 6px 10px;
+  font-size: 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(90deg, #00f0ff, #8b5cff);
+  color: #001;
+  font-weight: 700;
+}
+
+
 
 
 </style>
 </head>
 <body>
+
+  <!-- TOP RIGHT AUTH BAR -->
+<div id="authBar">
+  <img id="userAvatar" alt="avatar" />
+  <span id="userEmail">Loading...</span>
+  <button onclick="logout()">Logout</button>
+</div>
+
 
 <div class="shell">
 
@@ -653,6 +705,7 @@ reflectState();
 </footer>
 
 
+<script type="module" src="js/guard.js"></script>
 
 
 </body>
