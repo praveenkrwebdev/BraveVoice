@@ -115,9 +115,29 @@ button.secondary:hover {
   background: rgba(255,255,255,0.15);
 }
 
+/* button.google {
+  background: white;
+  color: #111827;
+}
+
+button.google:hover {
+  background: #f3f4f6;
+} */
+
+/* ---------- Google Button ---------- */
 button.google {
   background: white;
   color: #111827;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-weight: 600;
+}
+
+button.google img {
+  width: 18px;
+  height: 18px;
 }
 
 button.google:hover {
