@@ -35,7 +35,10 @@
     -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
     padding:18px;
             /* background: linear-gradient(135deg, #6366f1, #22d3ee); */
-       background: linear-gradient(345deg, #010114, #520e08);
+       background:
+      radial-gradient(900px 300px at 10% 10%, rgba(0,240,255,0.03), transparent 8%),
+      radial-gradient(700px 300px at 90% 80%, rgba(139,92,255,0.02), transparent 8%),
+      var(--bg-1);
        padding-bottom: 88px;
   }
   @supports (height: 100svh) {
