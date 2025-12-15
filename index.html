@@ -735,6 +735,29 @@ reflectState();
 
 
 <script type="module" src="js/guard.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const professionSelect = document.getElementById("professionSelect");
+    const stage = document.getElementById("practice-stage");
+
+    if (!professionSelect || !stage) return;
+
+    professionSelect.addEventListener("change", () => {
+      // Mobile only
+      if (window.innerWidth > 768) return;
+
+      // Ensure a real value is selected
+      if (!professionSelect.value) return;
+
+      setTimeout(() => {
+        stage.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      }, 150);
+    });
+  });
+</script>
 
 
 </body>
