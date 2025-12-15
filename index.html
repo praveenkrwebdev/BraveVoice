@@ -722,43 +722,6 @@ speedRange.addEventListener('input', ()=>{
 showNotAvailable();
 reflectState();
 
-
-
-const isMobile = () => window.innerWidth <= 768;
-
-  const typeSelect = document.getElementById("typeSelect");
-  const subTypeSelect = document.getElementById("subTypeSelect");
-  const professionSelect = document.getElementById("professionSelect");
-
-  function isSelectionComplete() {
-    return (
-      typeSelect?.value &&
-      subTypeSelect?.value &&
-      professionSelect?.value
-    );
-  }
-
-  function scrollToStage() {
-    if (!isMobile()) return;
-
-    const stage = document.getElementById("practice-stage");
-    if (!stage) return;
-
-    stage.scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
-  }
-
-  [typeSelect, subTypeSelect, professionSelect].forEach(select => {
-    if (!select) return;
-
-    select.addEventListener("change", () => {
-      if (isSelectionComplete()) {
-        setTimeout(scrollToStage, 200);
-      }
-    });
-  });
   
 </script>
 
