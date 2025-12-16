@@ -149,7 +149,7 @@
     background: linear-gradient(180deg, rgba(0,0,0,0.14), rgba(255,255,255,0.01));
     border-radius:14px; padding:28px; display:flex;flex-direction:column;gap:18px;
     align-items:center; 
-    border:1px solid rgba(255,255,255,0.5);
+    border:1px solid rgba(255,255,255,0.09);
   }
   h2#metaType{font-size:20px; margin:0;}
 
@@ -590,7 +590,7 @@ function updateSpeedIcon(){
 } 
   
 function showNotAvailable(){
-  wordBoxInner.innerHTML = '<div class="not-available">No words available for this selection</div>';
+  wordBoxInner.innerHTML = '<div class="not-available">Select a Type and Sub-Type to begin practice</div>';
   progressBar.style.width = '0%';
   metaType.textContent = 'Type: —';
   metaSub.textContent = 'Sub-Type: —';
