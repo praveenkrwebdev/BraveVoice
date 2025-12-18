@@ -201,6 +201,10 @@ button:active {
   opacity: 0.85;
   text-decoration: underline;
 }
+@media (max-width:460px){
+    .auth-footer {padding:0 50px; }
+  }
+
 .forgot {
   background: none;
   border: none;
