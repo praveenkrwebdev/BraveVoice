@@ -47,6 +47,27 @@ window.googleLogin = () => {
     .catch(err => alert(err.message));
 };
 
+/* 🔑 FORGOT PASSWORD */
+window.resetPassword = () => {
+  const email = document.getElementById("email")?.value;
+  const errorBox = getErrorBox();
+
+  if (!email) {
+    errorBox.innerText = "Please enter your email first.";
+    return;
+  }
+
+  sendPasswordResetEmail(auth, email)
+    .then(() => {
+      errorBox.style.color = "green";
+      errorBox.innerText = "Password reset email sent. Check your inbox.";
+    })
+    .catch(err => {
+      errorBox.style.color = "red";
+      errorBox.innerText = err.message;
+    });
+};
+
 /* LOGOUT */
 window.logout = () => {
   signOut(auth).then(() => {
