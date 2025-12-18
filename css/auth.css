@@ -13,19 +13,20 @@ html, body {
   height: 100%;
 }
 
-/* Background only – no flex here (important for mobile) */
+/* Background only */
 body {
   background: linear-gradient(135deg, #6366f1, #22d3ee);
 }
 
 /* =========================================================
-   MAIN CONTAINER (CONTROLS CENTERING)
+   MAIN CONTAINER (STACKS CARD + FOOTER)
    ========================================================= */
 .auth-container {
   width: 100%;
   min-height: 100vh;
 
   display: flex;
+  flex-direction: column;      /* 🔥 critical */
   justify-content: center;
   align-items: center;
 
@@ -38,7 +39,7 @@ body {
 .auth-card {
   width: 100%;
   max-width: 360px;
-  margin: 0 auto; /* 🔥 fixes left-shift bug */
+  margin: 0 auto 24px;          /* space before footer */
 
   padding: 34px 32px;
   border-radius: 18px;
@@ -51,14 +52,14 @@ body {
     0 20px 40px rgba(0,0,0,0.25),
     inset 0 1px 1px rgba(255,255,255,0.25);
 
-  color: white;
+  color: #ffffff;
 
   animation: fadeSlideIn 0.8s ease forwards;
   transform: translateY(24px) scale(0.96);
   opacity: 0;
 }
 
-/* Card entrance */
+/* Card animation */
 @keyframes fadeSlideIn {
   to {
     transform: translateY(0) scale(1);
@@ -95,7 +96,6 @@ input {
   outline: none;
 
   font-size: 14px;
-  transition: box-shadow 0.3s ease, transform 0.15s ease;
 }
 
 input::placeholder {
@@ -104,7 +104,6 @@ input::placeholder {
 
 input:focus {
   box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.5);
-  transform: scale(1.01);
 }
 
 /* =========================================================
@@ -124,7 +123,7 @@ input:focus {
 }
 
 .forgot:hover {
-  color: #fff;
+  color: #ffffff;
   text-decoration: underline;
 }
 
@@ -142,10 +141,7 @@ button {
   font-weight: 600;
   cursor: pointer;
 
-  transition:
-    transform 0.15s ease,
-    box-shadow 0.2s ease,
-    background 0.2s ease;
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
 }
 
 /* =========================================================
@@ -164,7 +160,6 @@ button.primary:hover {
 
 button.primary:active {
   transform: scale(0.97);
-  box-shadow: 0 4px 12px rgba(2,6,23,0.35);
 }
 
 /* =========================================================
@@ -195,7 +190,7 @@ button.secondary:hover {
    GOOGLE BUTTON
    ========================================================= */
 button.google {
-  background: white;
+  background: #ffffff;
   color: #111827;
 
   display: flex;
@@ -225,12 +220,9 @@ button.google:hover {
 }
 
 /* =========================================================
-   FOOTER (MOBILE SAFE)
+   FOOTER (MOBILE-FIRST)
    ========================================================= */
 .auth-footer {
-  width: 100%;
-  margin-top: 22px;
-
   text-align: center;
   font-size: 12px;
   color: rgba(255,255,255,0.75);
@@ -250,16 +242,11 @@ button.google:hover {
    DESKTOP ONLY FIXED FOOTER
    ========================================================= */
 @media (min-width: 768px) {
-  body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
   .auth-footer {
     position: fixed;
     bottom: 14px;
     left: 0;
+    width: 100%;
   }
 }
 
