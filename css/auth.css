@@ -1,43 +1,73 @@
-/* ---------- Base Reset ---------- */
+/* =========================================================
+   GLOBAL RESET & BASE STYLES
+   ========================================================= */
 * {
   box-sizing: border-box;
   font-family: system-ui, -apple-system, BlinkMacSystemFont;
 }
 
-body {
+html, body {
   margin: 0;
-  min-height: 100vh;
+  padding: 0;
+  min-height: 100%;
+}
+
+/* 
+  Body uses flex ONLY for background.
+  We do NOT use overflow:hidden to avoid mobile clipping.
+*/
+body {
   background: linear-gradient(135deg, #6366f1, #22d3ee);
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
 }
 
-/* ---------- Container ---------- */
+/* =========================================================
+   MAIN CONTAINER (HANDLES CENTERING SAFELY)
+   ========================================================= */
 .auth-container {
   width: 100%;
+  min-height: 100vh;
+
+  /* Center card */
   display: flex;
   justify-content: center;
   align-items: center;
+
+  /* Prevents edge cut on small screens */
+  padding: 20px;
 }
 
-/* ---------- Card ---------- */
+/* =========================================================
+   AUTH CARD
+   ========================================================= */
 .auth-card {
-  width: 360px;
+  width: 100%;
+  max-width: 360px;
+
   padding: 34px 32px;
   border-radius: 18px;
+
+  /* Glassmorphism background */
   background: rgba(255, 255, 255, 0.18);
   backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+
+  /* Depth */
   box-shadow:
     0 20px 40px rgba(0,0,0,0.25),
     inset 0 1px 1px rgba(255,255,255,0.25);
+
   color: white;
+
+  /* Entrance animation */
   animation: fadeSlideIn 0.8s ease forwards;
   transform: translateY(24px) scale(0.96);
   opacity: 0;
 }
 
+/* Card animation */
 @keyframes fadeSlideIn {
   to {
     transform: translateY(0) scale(1);
@@ -45,6 +75,9 @@ body {
   }
 }
 
+/* =========================================================
+   HEADINGS & TEXT
+   ========================================================= */
 .auth-card h2 {
   text-align: center;
   margin-bottom: 6px;
@@ -58,14 +91,18 @@ body {
   font-size: 14px;
 }
 
-/* ---------- Inputs ---------- */
+/* =========================================================
+   INPUT FIELDS
+   ========================================================= */
 input {
   width: 100%;
   padding: 13px 14px;
   margin-bottom: 14px;
+
   border-radius: 12px;
   border: none;
   outline: none;
+
   font-size: 14px;
   transition: box-shadow 0.3s ease, transform 0.15s ease;
 }
@@ -74,36 +111,56 @@ input::placeholder {
   color: #6b7280;
 }
 
+/* Input focus glow */
 input:focus {
   box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.5);
   transform: scale(1.01);
 }
 
-/* ---------- Buttons ---------- */
+/* =========================================================
+   BUTTONS (BASE)
+   ========================================================= */
 button {
   width: 100%;
   padding: 13px;
+
   border-radius: 12px;
   border: none;
+
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
+
   transition:
     transform 0.15s ease,
     box-shadow 0.2s ease,
     background 0.2s ease;
 }
 
+/* =========================================================
+   PRIMARY BUTTON (LOGIN)
+   ========================================================= */
 button.primary {
-  background: #111827;
+  background: linear-gradient(180deg, #0f172a, #020617);
   color: white;
   margin-bottom: 12px;
 }
 
+/* Hover */
 button.primary:hover {
-  background: #020617;
+  box-shadow: 0 10px 26px rgba(2,6,23,0.45);
+  transform: translateY(-1px);
 }
 
+/* Press */
+button.primary:active {
+  transform: scale(0.97);
+  box-shadow: 0 4px 12px rgba(2,6,23,0.35);
+}
+
+/* =========================================================
+   SECONDARY BUTTON (CREATE ACCOUNT)
+   ========================================================= */
 button.secondary {
   background: transparent;
   color: white;
@@ -115,23 +172,18 @@ button.secondary:hover {
   background: rgba(255,255,255,0.15);
 }
 
-/* button.google {
-  background: white;
-  color: #111827;
-}
-
-button.google:hover {
-  background: #f3f4f6;
-} */
-
-/* ---------- Google Button ---------- */
+/* =========================================================
+   GOOGLE LOGIN BUTTON
+   ========================================================= */
 button.google {
   background: white;
   color: #111827;
+
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 12px;
+
   font-weight: 600;
 }
 
@@ -144,17 +196,17 @@ button.google:hover {
   background: #f3f4f6;
 }
 
+/* =========================================================
+   GLOBAL BUTTON EFFECT
+   ========================================================= */
 button:hover {
   transform: translateY(-1px);
   box-shadow: 0 10px 22px rgba(0,0,0,0.25);
 }
 
-button:active {
-  transform: scale(0.97);
-  box-shadow: none;
-}
-
-/* ---------- Divider ---------- */
+/* =========================================================
+   DIVIDER (OR)
+   ========================================================= */
 .divider {
   text-align: center;
   margin: 16px 0;
@@ -167,7 +219,9 @@ button:active {
   to { opacity: 0.7; }
 }
 
-/* ---------- Error ---------- */
+/* =========================================================
+   ERROR MESSAGE
+   ========================================================= */
 .error {
   margin-top: 14px;
   color: #fecaca;
@@ -176,28 +230,9 @@ button:active {
   min-height: 16px;
 }
 
-/* ---------- Footer ---------- */
-.auth-footer {
-  position: fixed;
-  bottom: 14px;
-  left: 0;
-  width: 100%;
-  text-align: center;
-  font-size: 12px;
-  color: rgba(255,255,255,0.75);
-  letter-spacing: 0.3px;
-}
-
-.auth-footer a {
-  color: #22d3ee;
-  text-decoration: none;
-  font-weight: 600;
-}
-
-.auth-footer a:hover {
-  opacity: 0.85;
-  text-decoration: underline;
-}
+/* =========================================================
+   FORGOT PASSWORD LINK
+   ========================================================= */
 .forgot {
   background: none;
   border: none;
@@ -214,4 +249,48 @@ button:active {
   text-decoration: underline;
   background: none;
   box-shadow: none;
+}
+
+/* =========================================================
+   FOOTER (MOBILE SAFE)
+   ========================================================= */
+.auth-footer {
+  text-align: center;
+  font-size: 12px;
+  color: rgba(255,255,255,0.75);
+  letter-spacing: 0.3px;
+  margin-top: 24px;
+}
+
+.auth-footer a {
+  color: #22d3ee;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.auth-footer a:hover {
+  opacity: 0.85;
+  text-decoration: underline;
+}
+
+/* =========================================================
+   DESKTOP ONLY FIXED FOOTER
+   ========================================================= */
+@media (min-width: 768px) {
+  .auth-footer {
+    position: fixed;
+    bottom: 14px;
+    left: 0;
+    width: 100%;
+  }
+}
+
+/* =========================================================
+   MOBILE OPTIMIZATION
+   ========================================================= */
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 28px 22px;
+    border-radius: 16px;
+  }
 }
