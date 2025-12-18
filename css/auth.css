@@ -213,4 +213,5 @@ button:active {
   color: #ffffff;
   text-decoration: underline;
   background: none;
+  box-shadow: none;
 }
