@@ -6,12 +6,12 @@
 
 body {
   margin: 0;
-  min-height: 100vh;
+  /* min-height: 100vh; */
   background: linear-gradient(135deg, #6366f1, #22d3ee);
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 /* ---------- Container ---------- */
@@ -20,6 +20,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 100vh;
+  flex-direction: column;
 }
 
 /* ---------- Card ---------- */
@@ -36,6 +38,7 @@ body {
   animation: fadeSlideIn 0.8s ease forwards;
   transform: translateY(24px) scale(0.96);
   opacity: 0;
+  margin: 0 auto 24px; 
 }
 
 @keyframes fadeSlideIn {
