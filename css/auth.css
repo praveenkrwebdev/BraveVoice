@@ -212,4 +212,5 @@ button:active {
 .forgot:hover {
   color: #ffffff;
   text-decoration: underline;
+  background: none;
 }
