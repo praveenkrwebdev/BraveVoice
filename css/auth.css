@@ -194,7 +194,7 @@ button:active {
 }
 
 .auth-footer a {
-  color: #444242;
+  color: #067ec8;
   text-decoration: none;
   font-weight: 600;
 }
@@ -203,9 +203,9 @@ button:active {
   opacity: 0.85;
   text-decoration: underline;
 }
-/* @media (max-width:460px){
-    .auth-footer {padding:0 50px; }
-  } */
+@media (max-width:460px){
+    .auth-footer {padding:24px 50px 0; }
+  }
 
 .forgot {
   background: none;
