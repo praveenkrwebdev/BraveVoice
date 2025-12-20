@@ -227,6 +227,31 @@ button:active {
   opacity: 0.9;
 }
 
+.password-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.password-wrapper input {
+  width: 100%;
+  padding-right: 42px; /* space for eye icon */
+}
+
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  top: 40%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 13px;
+  opacity: 0.5;
+  user-select: none;
+}
+
+.toggle-password:hover {
+  opacity: 1;
+}
+
 /* ---------- MOBILE ---------- */
 @media (max-width: 420px) {
   .auth-card {
