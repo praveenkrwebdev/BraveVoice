@@ -81,4 +81,12 @@ onAuthStateChanged(auth, user => {
   if (!user && !location.pathname.includes("login")) {
     window.location.href = "login.html";
   }
+    /* 👁️ TOGGLE PASSWORD VISIBILITY */
+window.togglePassword = () => {
+  const passwordInput = document.getElementById("password");
+  if (!passwordInput) return;
+
+  passwordInput.type =
+    passwordInput.type === "password" ? "text" : "password";
+};
 });
