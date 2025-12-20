@@ -99,6 +99,8 @@ input:focus {
 .forgot:hover {
   color: #ffffff;
   text-decoration: underline;
+  background: none;
+  box-shadow: none;
 }
 
 /* ---------- BUTTONS ---------- */
@@ -214,7 +216,7 @@ button:active {
 }
 
 .auth-footer a {
-  color: #0ea5e9;
+  color:#044599;
   font-weight: 600;
   text-decoration: none;
 }
