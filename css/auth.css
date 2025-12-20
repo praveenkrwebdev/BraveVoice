@@ -130,9 +130,10 @@ button.primary:hover {
 button.secondary {
   background: transparent;
   color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.45);
+  border: 3px solid rgba(255, 255, 255, 0.45);
   margin-bottom: 18px;
   opacity: 0.9;
+  padding:10px;
 }
 
 button.secondary:hover {
@@ -233,6 +234,6 @@ button:active {
   }
 
   .auth-footer {
-    padding: 0 16px;
+    padding: 0 30px;
   }
 }
