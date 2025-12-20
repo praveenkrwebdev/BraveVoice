@@ -1,76 +1,80 @@
-/* ---------- Base Reset ---------- */
+/* ---------- RESET ---------- */
 * {
   box-sizing: border-box;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 body {
   margin: 0;
-  /* min-height: 100vh; */
+  min-height: 100vh;
   background: linear-gradient(135deg, #6366f1, #22d3ee);
   display: flex;
   justify-content: center;
   align-items: center;
-  /* overflow: hidden; */
 }
 
-/* ---------- Container ---------- */
+/* ---------- CONTAINER ---------- */
 .auth-container {
   width: 100%;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
   flex-direction: column;
+  padding: 24px;
 }
 
-/* ---------- Card ---------- */
+/* ---------- CARD ---------- */
 .auth-card {
-  width: 360px;
-  padding: 34px 32px;
-  border-radius: 18px;
+  width: 100%;
+  max-width: 360px;
+  padding: 40px 32px 34px;
+  border-radius: 20px;
   background: rgba(255, 255, 255, 0.18);
   backdrop-filter: blur(22px);
   box-shadow:
-    0 20px 40px rgba(0,0,0,0.25),
-    inset 0 1px 1px rgba(255,255,255,0.25);
-  color: white;
-  animation: fadeSlideIn 0.8s ease forwards;
-  transform: translateY(24px) scale(0.96);
+    0 25px 45px rgba(0, 0, 0, 0.28),
+    inset 0 1px 1px rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  animation: fadeSlideIn 0.7s ease forwards;
+  transform: translateY(20px);
   opacity: 0;
-  margin: 0 auto 24px; 
 }
 
 @keyframes fadeSlideIn {
   to {
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
     opacity: 1;
   }
 }
 
+/* ---------- HEADINGS ---------- */
 .auth-card h2 {
   text-align: center;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   font-size: 22px;
+  font-weight: 600;
 }
 
 .subtitle {
   text-align: center;
   opacity: 0.85;
-  margin-bottom: 26px;
+  margin-bottom: 30px;
   font-size: 14px;
+  line-height: 1.45;
 }
 
-/* ---------- Inputs ---------- */
+/* ---------- INPUTS ---------- */
 input {
   width: 100%;
-  padding: 13px 14px;
-  margin-bottom: 14px;
-  border-radius: 12px;
+  padding: 14px 15px;
+  margin-bottom: 16px;
+  border-radius: 14px;
   border: none;
   outline: none;
   font-size: 14px;
-  transition: box-shadow 0.3s ease, transform 0.15s ease;
+  background: #ffffff;
+  transition: box-shadow 0.25s ease, transform 0.15s ease;
 }
 
 input::placeholder {
@@ -78,64 +82,76 @@ input::placeholder {
 }
 
 input:focus {
-  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.5);
+  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.45);
   transform: scale(1.01);
 }
 
-/* ---------- Buttons ---------- */
+/* ---------- FORGOT PASSWORD ---------- */
+.forgot {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 12px;
+  text-align: right;
+  width: 100%;
+  margin-top: -6px;
+  margin-bottom: 22px;
+  padding: 0;
+  cursor: pointer;
+}
+
+.forgot:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+/* ---------- BUTTONS ---------- */
 button {
   width: 100%;
-  padding: 13px;
-  border-radius: 12px;
+  padding: 14px;
+  border-radius: 14px;
   border: none;
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
-  transition:
-    transform 0.15s ease,
-    box-shadow 0.2s ease,
-    background 0.2s ease;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
+/* Primary */
 button.primary {
   background: #111827;
-  color: white;
-  margin-bottom: 12px;
+  color: #ffffff;
+  margin-bottom: 14px;
 }
 
 button.primary:hover {
   background: #020617;
 }
 
+/* Secondary */
 button.secondary {
   background: transparent;
-  color: white;
-  border: 1px solid rgba(255,255,255,0.45);
-  margin-bottom: 18px;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  margin-bottom: 22px;
+  opacity: 0.9;
 }
 
 button.secondary:hover {
-  background: rgba(255,255,255,0.15);
+  background: rgba(255, 255, 255, 0.15);
 }
 
-/* button.google {
-  background: white;
-  color: #111827;
-}
-
-button.google:hover {
-  background: #f3f4f6;
-} */
-
-/* ---------- Google Button ---------- */
+/* Google Button */
 button.google {
-  background: white;
+  background: #ffffff;
   color: #111827;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 12px;
   font-weight: 600;
+  padding: 13px;
+  border-radius: 14px;
 }
 
 button.google img {
@@ -147,9 +163,10 @@ button.google:hover {
   background: #f3f4f6;
 }
 
+/* Button Interaction */
 button:hover {
   transform: translateY(-1px);
-  box-shadow: 0 10px 22px rgba(0,0,0,0.25);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.25);
 }
 
 button:active {
@@ -157,20 +174,29 @@ button:active {
   box-shadow: none;
 }
 
-/* ---------- Divider ---------- */
+/* ---------- DIVIDER ---------- */
 .divider {
-  text-align: center;
-  margin: 16px 0;
-  opacity: 0;
-  font-size: 13px;
-  animation: fadeIn 1.2s ease forwards;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 22px 0;
+  opacity: 0.6;
 }
 
-@keyframes fadeIn {
-  to { opacity: 0.7; }
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.4);
 }
 
-/* ---------- Error ---------- */
+.divider span {
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+/* ---------- ERROR ---------- */
 .error {
   margin-top: 14px;
   color: #fecaca;
@@ -179,49 +205,33 @@ button:active {
   min-height: 16px;
 }
 
-/* ---------- Footer ---------- */
+/* ---------- FOOTER ---------- */
 .auth-footer {
-  position: fixed;
-  bottom: 14px;
-  left: 0;
-  width: 100%;
+  margin-top: 24px;
   text-align: center;
   font-size: 12px;
-  color: rgba(255,255,255,0.75);
-  letter-spacing: 0.3px;
-  line-height:18px;
-
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 18px;
 }
 
 .auth-footer a {
-  color: #067ec8;
+  color: #0ea5e9;
   text-decoration: none;
   font-weight: 600;
 }
 
 .auth-footer a:hover {
-  opacity: 0.85;
   text-decoration: underline;
+  opacity: 0.9;
 }
-@media (max-width:460px){
-    .auth-footer {padding:24px 50px 0; }
+
+/* ---------- MOBILE ---------- */
+@media (max-width: 420px) {
+  .auth-card {
+    padding: 36px 26px 30px;
   }
 
-.forgot {
-  background: none;
-  border: none;
-  color: rgba(255,255,255,0.7);
-  font-size: 12px;
-  text-align: right;
-  width: 100%;
-  margin-bottom: 14px;
-  cursor: pointer;
+  .auth-footer {
+    padding: 0 16px;
+  }
 }
-
-.forgot:hover {
-  color: #ffffff;
-  text-decoration: underline;
-  background: none;
-  box-shadow: none;
-}
-
