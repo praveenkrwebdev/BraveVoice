@@ -133,10 +133,10 @@ window.logout = () => {
 };
 
 /* AUTH STATE (OPTIONAL BUT BEST PRACTICE) */
-onAuthStateChanged(auth, user => {
-  if (!user && !location.pathname.includes("login")) {
-    window.location.href = "login.html";
-  }
+// onAuthStateChanged(auth, user => {
+//   if (!user && !location.pathname.includes("login")) {
+//     window.location.href = "login.html";
+//   }
     /* 👁️ TOGGLE PASSWORD VISIBILITY */
 window.togglePassword = () => {
   const passwordInput = document.getElementById("password");
