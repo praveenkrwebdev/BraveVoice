@@ -3,7 +3,6 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
-  signOut,
   signInWithPopup,
   sendPasswordResetEmail
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
@@ -88,12 +87,7 @@ window.resetPassword = () => {
     .catch(err => showFieldError("email", err.message));
 };
 
-/* LOGOUT */
-window.logout = () => {
-  signOut(auth).then(() => {
-    window.location.href = "login.html";
-  });
-};
+
 
 /* TOGGLE PASSWORD */
 window.togglePassword = () => {
