@@ -34,8 +34,8 @@ const clearErrors = () => {
 window.login = () => {
   clearErrors();
 
-  const email = emailEl.value.trim();
-  const password = passwordEl.value.trim();
+  const email = email.value.trim();
+  const password = password.value.trim();
 
   if (!email) return showFieldError("email", "Email is required");
   if (!password) return showFieldError("password", "Password is required");
@@ -55,8 +55,8 @@ window.login = () => {
 window.signup = () => {
   clearErrors();
 
-  const email = emailEl.value.trim();
-  const password = passwordEl.value.trim();
+  const email = email.value.trim();
+  const password = password.value.trim();
   const confirm = confirmPassword.value.trim();
 
   if (!email) return showFieldError("email", "Email required");
