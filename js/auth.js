@@ -3,72 +3,89 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
-  signInWithPopup,
   signOut,
-  onAuthStateChanged,
+  signInWithPopup,
   sendPasswordResetEmail
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 const provider = new GoogleAuthProvider();
 
-const getErrorBox = () => document.getElementById("error");
+/* HELPERS */
+const showFieldError = (id, message) => {
+  const field = document.getElementById(id)?.closest(".field");
+  if (!field) return;
+
+  field.classList.remove("error");
+  void field.offsetWidth; // re-trigger animation
+  field.classList.add("error");
+
+  field.querySelector(".field-error").innerText = message;
+};
+
+const clearErrors = () => {
+  document.querySelectorAll(".field").forEach(f => {
+    f.classList.remove("error");
+    const err = f.querySelector(".field-error");
+    if (err) err.innerText = "";
+  });
+};
 
 /* LOGIN */
 window.login = () => {
-  const email = document.getElementById("email")?.value;
-  const password = document.getElementById("password")?.value;
-  const errorBox = getErrorBox();
+  clearErrors();
+
+  const email = emailEl.value.trim();
+  const password = passwordEl.value.trim();
+
+  if (!email) return showFieldError("email", "Email is required");
+  if (!password) return showFieldError("password", "Password is required");
 
   signInWithEmailAndPassword(auth, email, password)
-    .then(() => window.location.href = "index.html")
+    .then(() => location.href = "index.html")
     .catch(err => {
-      if (errorBox) errorBox.innerText = err.message;
-      else alert(err.message);
+      if (err.code.includes("user-not-found"))
+        showFieldError("email", "Account not found");
+      else if (err.code.includes("wrong-password"))
+        showFieldError("password", "Incorrect password");
+      else showFieldError("email", err.message);
     });
 };
 
 /* SIGNUP */
 window.signup = () => {
-  const email = document.getElementById("email")?.value;
-  const password = document.getElementById("password")?.value;
-  const errorBox = getErrorBox();
+  clearErrors();
+
+  const email = emailEl.value.trim();
+  const password = passwordEl.value.trim();
+  const confirm = confirmPassword.value.trim();
+
+  if (!email) return showFieldError("email", "Email required");
+  if (password.length < 6)
+    return showFieldError("password", "Minimum 6 characters");
+  if (password !== confirm)
+    return showFieldError("confirmPassword", "Passwords do not match");
 
   createUserWithEmailAndPassword(auth, email, password)
-    .then(() => window.location.href = "index.html")
-    .catch(err => {
-      if (errorBox) errorBox.innerText = err.message;
-      else alert(err.message);
-    });
+    .then(() => location.href = "index.html")
+    .catch(err => showFieldError("email", err.message));
 };
 
-
-
-/* GOOGLE LOGIN */
+/* GOOGLE */
 window.googleLogin = () => {
   signInWithPopup(auth, provider)
-    .then(() => window.location.href = "index.html")
+    .then(() => location.href = "index.html")
     .catch(err => alert(err.message));
 };
 
-/* 🔑 FORGOT PASSWORD */
+/* RESET PASSWORD */
 window.resetPassword = () => {
-  const email = document.getElementById("email")?.value;
-  const errorBox = getErrorBox();
+  clearErrors();
+  if (!emailEl.value)
+    return showFieldError("email", "Enter email first");
 
-  if (!email) {
-    errorBox.innerText = "Please enter your email first.";
-    return;
-  }
-
-  sendPasswordResetEmail(auth, email)
-    .then(() => {
-      errorBox.style.color = "green";
-      errorBox.innerText = "Password reset email sent. Check your inbox.";
-    })
-    .catch(err => {
-      errorBox.style.color = "red";
-      errorBox.innerText = err.message;
-    });
+  sendPasswordResetEmail(auth, emailEl.value)
+    .then(() => alert("Password reset email sent"))
+    .catch(err => showFieldError("email", err.message));
 };
 
 /* LOGOUT */
@@ -78,18 +95,7 @@ window.logout = () => {
   });
 };
 
-/* AUTH STATE (OPTIONAL BUT BEST PRACTICE) */
-onAuthStateChanged(auth, user => {
-  if (!user && !location.pathname.includes("login")) {
-    window.location.href = "login.html";
-  };
-
-    /* 👁️ TOGGLE PASSWORD VISIBILITY */
+/* TOGGLE PASSWORD */
 window.togglePassword = () => {
-  const passwordInput = document.getElementById("password");
-  if (!passwordInput) return;
-
-  passwordInput.type =
-    passwordInput.type === "password" ? "text" : "password";
+  password.type = password.type === "password" ? "text" : "password";
 };
-});
