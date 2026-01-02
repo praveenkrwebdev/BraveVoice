@@ -9,87 +9,108 @@ import {
 
 const provider = new GoogleAuthProvider();
 
-/* HELPERS */
+/* ---------- DOM HELPERS ---------- */
+const getEmail = () => document.getElementById("email");
+const getPassword = () => document.getElementById("password");
+const getConfirmPassword = () =>
+  document.getElementById("confirmPassword");
+
+/* ---------- ERROR HELPERS ---------- */
 const showFieldError = (id, message) => {
   const field = document.getElementById(id)?.closest(".field");
   if (!field) return;
 
   field.classList.remove("error");
-  void field.offsetWidth; // re-trigger animation
+  void field.offsetWidth; // retrigger animation
   field.classList.add("error");
 
-  field.querySelector(".field-error").innerText = message;
+  const errorEl = field.querySelector(".field-error");
+  if (errorEl) errorEl.innerText = message;
 };
 
 const clearErrors = () => {
-  document.querySelectorAll(".field").forEach(f => {
-    f.classList.remove("error");
-    const err = f.querySelector(".field-error");
-    if (err) err.innerText = "";
+  document.querySelectorAll(".field").forEach(field => {
+    field.classList.remove("error");
+    const error = field.querySelector(".field-error");
+    if (error) error.innerText = "";
   });
 };
 
-/* LOGIN */
+/* ---------- LOGIN ---------- */
 window.login = () => {
   clearErrors();
 
-  const email = email.value.trim();
-  const password = password.value.trim();
+  const emailEl = getEmail();
+  const passwordEl = getPassword();
+
+  const email = emailEl?.value.trim();
+  const password = passwordEl?.value.trim();
 
   if (!email) return showFieldError("email", "Email is required");
   if (!password) return showFieldError("password", "Password is required");
 
   signInWithEmailAndPassword(auth, email, password)
-    .then(() => location.href = "index.html")
+    .then(() => (location.href = "index.html"))
     .catch(err => {
-      if (err.code.includes("user-not-found"))
+      if (err.code === "auth/user-not-found") {
         showFieldError("email", "Account not found");
-      else if (err.code.includes("wrong-password"))
+      } else if (err.code === "auth/wrong-password") {
         showFieldError("password", "Incorrect password");
-      else showFieldError("email", err.message);
+      } else {
+        showFieldError("email", err.message);
+      }
     });
 };
 
-/* SIGNUP */
+/* ---------- SIGNUP ---------- */
 window.signup = () => {
   clearErrors();
 
-  const email = email.value.trim();
-  const password = password.value.trim();
-  const confirm = confirmPassword.value.trim();
+  const emailEl = getEmail();
+  const passwordEl = getPassword();
+  const confirmEl = getConfirmPassword();
 
-  if (!email) return showFieldError("email", "Email required");
-  if (password.length < 6)
+  const email = emailEl?.value.trim();
+  const password = passwordEl?.value.trim();
+  const confirm = confirmEl?.value.trim();
+
+  if (!email) return showFieldError("email", "Email is required");
+  if (!password || password.length < 6)
     return showFieldError("password", "Minimum 6 characters");
   if (password !== confirm)
     return showFieldError("confirmPassword", "Passwords do not match");
 
   createUserWithEmailAndPassword(auth, email, password)
-    .then(() => location.href = "index.html")
+    .then(() => (location.href = "index.html"))
     .catch(err => showFieldError("email", err.message));
 };
 
-/* GOOGLE */
+/* ---------- GOOGLE LOGIN ---------- */
 window.googleLogin = () => {
   signInWithPopup(auth, provider)
-    .then(() => location.href = "index.html")
+    .then(() => (location.href = "index.html"))
     .catch(err => alert(err.message));
 };
 
-/* RESET PASSWORD */
+/* ---------- RESET PASSWORD ---------- */
 window.resetPassword = () => {
   clearErrors();
-  if (!emailEl.value)
-    return showFieldError("email", "Enter email first");
 
-  sendPasswordResetEmail(auth, emailEl.value)
+  const emailEl = getEmail();
+  const email = emailEl?.value.trim();
+
+  if (!email) return showFieldError("email", "Enter email first");
+
+  sendPasswordResetEmail(auth, email)
     .then(() => alert("Password reset email sent"))
     .catch(err => showFieldError("email", err.message));
 };
 
-
-
-/* TOGGLE PASSWORD */
+/* ---------- TOGGLE PASSWORD ---------- */
 window.togglePassword = () => {
-  password.type = password.type === "password" ? "text" : "password";
+  const passwordEl = getPassword();
+  if (!passwordEl) return;
+
+  passwordEl.type =
+    passwordEl.type === "password" ? "text" : "password";
 };
