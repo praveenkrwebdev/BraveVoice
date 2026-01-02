@@ -2,57 +2,52 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>BraveVoice | Login </title>
+  <title>BraveVoice | Login</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="icon" type="image/png" href="pinklogo.png">
   <link rel="stylesheet" href="css/auth.css" />
 </head>
 <body>
 
-  <div class="auth-container">
-    <div class="auth-card">
+<div class="auth-container">
+  <div class="auth-card">
 
-      <h2>Welcome To BraveVoice</h2>
-      <p class="subtitle">Practice at your own pace. We’re here to help</p>
+    <h2>Welcome to BraveVoice</h2>
+    <p class="subtitle">Practice at your own pace. We’re here to help</p>
 
+    <div class="field">
       <input type="email" id="email" placeholder="Email address" />
-      <!-- <input type="password" id="password" placeholder="Password" /> -->
-      <div class="password-wrapper">
-      <input type="password" id="password" placeholder="Password" />
-      <span class="toggle-password" onclick="togglePassword()">👁️</span>
-      </div>
-      <button class="forgot" onclick="resetPassword()">Forgot password?</button>
-
-      <button class="primary" onclick="login()">Login</button>
-      <button class="secondary" onclick="signup()">Create account</button>
-      <!-- <button class="secondary" onclick="location.href='signup.html'">
-      Create account
-    </button> -->
-
-      <div class="divider">OR</div>
-
-      <!-- <button class="google" onclick="googleLogin()">
-        Continue with Google
-      </button> -->
-      <button class="google" onclick="googleLogin()">
-  <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google logo">
-  Continue with Google
-</button>
-
-
-      <p id="error" class="error"></p>
-
+      <small class="field-error"></small>
     </div>
 
+    <div class="field password-wrapper">
+      <input type="password" id="password" placeholder="Password" />
+      <span class="toggle-password" onclick="togglePassword()">👁️</span>
+      <small class="field-error"></small>
+    </div>
+
+    <button class="forgot" onclick="resetPassword()">Forgot password?</button>
+
+    <button class="primary" onclick="login()">Login</button>
+
+    <button class="secondary" onclick="location.href='signup.html'">
+      Create account
+    </button>
+
+    <div class="divider"><span>OR</span></div>
+
+    <button class="google" onclick="googleLogin()">
+      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg">
+      Continue with Google
+    </button>
+
   </div>
+</div>
 
-  <script type="module" src="js/auth.js"></script>
-      <footer class="auth-footer">
-  Clinically designed by Speech and language therapist | Developed by 
-  <a href="https://www.artsbypraveen.in/" target="_blank" rel="noopener">
-    Praveen Sharma
-  </a>
-      </footer>
+<footer class="auth-footer">
+  Clinically designed by Speech and language therapist |
+  Developed by <a href="https://www.artsbypraveen.in/" target="_blank">Praveen Sharma</a>
+</footer>
 
+<script type="module" src="js/auth.js"></script>
 </body>
 </html>
