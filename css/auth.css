@@ -306,3 +306,181 @@ button:active {
   80% { transform: translateX(3px); }
   100% { transform: translateX(0); }
 }
+
+/* ================= TOKENS ================= */
+:root {
+  --bg-main: radial-gradient(
+    900px circle at 20% 10%,
+    #0b1020,
+    #020617 65%,
+    #000000 100%
+  );
+
+  --glass-bg: rgba(15, 23, 42, 0.72);
+  --glass-border: rgba(255,255,255,0.18);
+
+  --text-main: #ffffff;
+  --text-muted: #9ca3af;
+
+  --primary: #4da3ff;
+
+  --radius-lg: 22px;
+  --radius-md: 14px;
+}
+
+/* ================= RESET ================= */
+* {
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg-main);
+  display: grid;
+  place-items: center;
+  color: var(--text-main);
+  overflow: hidden;
+}
+
+/* ================= PARTICLE CANVAS ================= */
+#particles {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
+/* ================= CARD ================= */
+.auth-card {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 360px;
+  padding: 32px 28px;
+  border-radius: var(--radius-lg);
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,0.16),
+      rgba(255,255,255,0.02)
+    ),
+    var(--glass-bg);
+
+  backdrop-filter: blur(26px);
+  -webkit-backdrop-filter: blur(26px);
+
+  border: 1px solid var(--glass-border);
+
+  box-shadow:
+    0 40px 80px rgba(0,0,0,0.75),
+    inset 0 1px 1px rgba(255,255,255,0.32),
+    inset 0 -24px 48px rgba(0,0,0,0.45);
+}
+
+/* ================= TEXT ================= */
+h1 {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 26px;
+}
+
+/* ================= INPUTS ================= */
+input {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255,255,255,0.14);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,0.14),
+      rgba(255,255,255,0.03)
+    );
+  color: white;
+  font-size: 14px;
+  outline: none;
+  margin-bottom: 16px;
+}
+
+input::placeholder {
+  color: #9ca3af;
+}
+
+input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(77,163,255,0.55);
+}
+
+/* ================= BUTTONS ================= */
+button {
+  width: 100%;
+  padding: 14px;
+  border-radius: var(--radius-md);
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Primary */
+.primary {
+  background: #111827;
+  color: white;
+  margin-bottom: 14px;
+  box-shadow:
+    0 10px 24px rgba(0,0,0,0.55),
+    inset 0 1px 1px rgba(255,255,255,0.12);
+}
+
+/* Secondary */
+.secondary {
+  background: transparent;
+  color: white;
+  border: 1.5px solid rgba(255,255,255,0.3);
+  margin-bottom: 18px;
+}
+
+/* Divider */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin: 18px 0;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: rgba(255,255,255,0.2);
+}
+
+/* Google */
+.google {
+  background: #ffffff;
+  color: #020617;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 420px) {
+  .auth-card {
+    padding: 26px 22px;
+  }
+}
