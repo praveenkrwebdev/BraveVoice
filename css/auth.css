@@ -62,7 +62,7 @@ body {
 /* FLOATING FIELD */
 .field {
   position: relative;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 }
 
 /* ---------- INPUTS ---------- */
@@ -99,6 +99,7 @@ input:focus,input:active {
   font-size: 11px;
   color: #fff;
   background: #6ba2f3;
+  transform: translateY(0);
 }
 
 /* ---------- FORGOT PASSWORD ---------- */
