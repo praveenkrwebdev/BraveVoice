@@ -74,7 +74,7 @@ input {
   border: none;
   outline: none;
   font-size: 14px;
-  background: #ffffff;
+  background: transparent;
   transition: box-shadow 0.25s ease, transform 0.15s ease;
 }
 .field label {
@@ -102,7 +102,7 @@ input:focus {
   top: 0px;
   font-size: 11px;
   color: #fff;
-    background: #6366f1;
+  background: #6ba2f3;
 }
 
 /* ---------- FORGOT PASSWORD ---------- */
