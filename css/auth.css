@@ -59,6 +59,11 @@ body {
   margin-bottom: 22px;
   line-height: 1.45;
 }
+/* FLOATING FIELD */
+.field {
+  position: relative;
+  margin-bottom: 16px;
+}
 
 /* ---------- INPUTS ---------- */
 input {
@@ -72,6 +77,17 @@ input {
   background: #ffffff;
   transition: box-shadow 0.25s ease, transform 0.15s ease;
 }
+.field label {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: white;
+  padding: 0 6px;
+  pointer-events: none;
+  transition:  all 0.4s ease-in-out;
+}
 
 input::placeholder {
   color: #6b7280;
@@ -80,6 +96,13 @@ input::placeholder {
 input:focus {
   box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.45);
   transform: scale(1.01);
+}
+.field input:focus + label,
+.field input:not(:placeholder-shown) + label {
+  top: 0px;
+  font-size: 11px;
+  color: #fff;
+    background: #6366f1;
 }
 
 /* ---------- FORGOT PASSWORD ---------- */
