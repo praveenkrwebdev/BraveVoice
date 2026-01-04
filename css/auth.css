@@ -89,7 +89,7 @@ input {
   pointer-events: none;
   transition:  all 0.4s ease-in-out;
 }
-input:focus {
+input:focus,input:active {
   box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.45);
   transform: scale(1.01);
 }
