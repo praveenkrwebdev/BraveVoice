@@ -82,6 +82,7 @@ input {
   top: 22px;
   transform: translateY(-50%);
   font-size: 14px;
+  line-height:14px;
   color: white;
   padding: 0 6px;
   pointer-events: none;
