@@ -401,182 +401,199 @@
 /* ============================
    Data
 ============================= */
-const data = {
-  repetition: {
-    "Sound Repetition": {
-      doctor: ["scan","syringe","scope","saline","stent","swab","scanbed","sample","scale","stat"],
-      advocate: ["section","sign","suit","statute","state","stage","send","serve","seal","see"],
-      engineer: ["sensor","signal","server","switch","socket","segment","solder","scan","scale","sample"],
-      teacher: ["study","syllabus","subject","session","sentence","solve","speak","score","spell","search"],
-      student: ["study","solve","submit","score","skill","school","sample","session","spell","search"],
-      tvactor: ["scene","script","shot","say","scene2","sound","signal","speak","stage","strike"],
-      singer: ["sing","scale","sound","sustain","solo","soft","slide","shimmer","sample","signal"],
-      other: ["start","stop","see","say","show","sell","serve","shift","share","shine"]
-    },
-    "Syllable Repetition": {
-      doctor: ["pa-pa-tient","in-in-jection","ta-ta-blet","re-re-port","di-di-agnose","op-op-tion","cl-clinic","tu-tu-bes","va-va-lve","ec-ec-g"],
-      advocate: ["pe-pe-tition","ar-ar-gument","ap-ap-peal","cli-cli-ent","do-do-cument","ju-ju-dge","st-statement","he-he-aring","ve-ve-rdict","co-co-urt"],
-      engineer: ["ci-ci-rcuit","de-de-sign","so-software","mo-mo-dule","se-se-nsor","ar-ar-chive","te-te-sting","sy-sy-stem","ne-ne-twork","pr-pr-ototype"],
-      teacher: ["le-le-sson","ch-cha-pter","su-subject","no-no-tebook","ex-ex-am","re-re-vision","pr-practice","as-as-ignment","gr-gra-mmar","th-theory"],
-      student: ["ho-ho-mework","pro-pro-ject","ex-ex-am","no-no-tebook","re-re-vision","sta-station","le-le-sson","cl-cl-ass","su-su-bject","ta-ta-ble"],
-      tvactor: ["di-di-alogue","sc-scene","sc-sc-ript","ac-ac-tion","au-au-diton","pe-pe-rformance","ma-ma-keup","ex-ex-pression","ch-ch-aracter","di-di-rector"],
-      singer: ["me-me-lody","ry-ry-thm","pi-pitch","ho-ho-nor","no-no-te","so-so-nd","li-li-yrics","vo-vo-cal","ch-chorus","re-re-cord"],
-      other: ["he-he-llo","ma-ma-rket","of-of-fice","tr-tra-vel","fa-fa-mily","sh-shopping","mo-mo-rning","fr-friend","di-dinner","mu-music"]
-    },
-    "Word Repetition": {
-      doctor: ["pain", "pressure", "treatment", "test", "follow-up", "medicine", "monitor", "risk", "symptom", "improve"],
-      advocate: ["evidence", "claim", "rights", "court", "case", "contract", "issue", "proof", "legal", "argument"],
-      engineer: ["system", "process", "test", "design", "error", "function", "model", "update", "build", "check"],
-      teacher: ["remember", "important", "example", "practice", "review", "focus", "repeat", "explain", "check", "understand"],
-      student: ["question", "example", "notes", "assignment", "understand", "help", "practice", "class", "topic", "explain"],
-      tvactor: ["line", "scene", "take", "emotion", "action", "camera", "timing", "cue", "script", "character"],
-      singer: ["note", "pitch", "voice", "rhythm", "tempo", "breath", "tone", "repeat", "practice", "chorus"],
-      other: ["really", "okay", "right", "just", "maybe", "again", "wait", "look", "actually", "sure"]
-    },
-    "Phrase Repetition": {
-      doctor: [
-        "take a deep breath","how are you feeling","follow this routine","let me check","come back for review",
-        "take your medicine","drink plenty of water","let me explain","tell me your symptoms","don't worry"
-      ],
-      advocate: [
-        "according to the law","in this case","as per the section","let me clarify","based on evidence",
-        "in my opinion","as your counsel","we can appeal","facts of the case","legal rights involved"
-      ],
-      engineer: [
-        "let's run a test","check the system","we need to debug","let’s review the design","update the version",
-        "run the process again","check the logs","optimize the code","let me verify","it’s not working"
-      ],
-      teacher: [
-        "pay attention","follow the instructions","listen carefully","let’s practice this","remember this point",
-        "repeat after me","focus on this topic","check your work","understand the concept","read the question"
-      ],
-      student: [
-        "I have a doubt","can you explain again","I don’t understand","one more example","is this correct",
-        "what do we do next","can you repeat that","how do I solve this","I need help","what does this mean"
-      ],
-      tvactor: [
-        "what’s my line","start from the top","let’s do another take","how’s my timing","what’s the emotion",
-        "check the camera","let’s rehearse again","give me the cue","run the scene","I need direction"
-      ],
-      singer: [
-        "start from the chorus","let’s try again","follow the rhythm","keep the tempo","take a deep breath",
-        "hit the note","repeat the line","let’s harmonize","from the top","slow it down"
-      ],
-      other: [
-        "one second","hold on","wait a minute","let me check","are you sure",
-        "that’s okay","I think so","tell me again","do it again","let's go"
-      ]
-    }
-  },
-  prolongation: {
-    "Voiced Prolongation": {
-      doctor: ["mmmmmedicine","aaaaarm","rrrrreport","lllllungs","vvvvvital"],
-      engineer: ["rrrrrobot","vvvvvoltage","mmmmmodule","sssssignal"],
-      student: ["ssssstudy","mmmmmaths","rrrrreading"],
-      teacher: ["llllllllesson","mmmmmaterial","sssssubject"],
-      advocate: ["lllllaw","rrrrrreason","vvvvverdict"],
-      tvactor: ["mmmmmmic","ssssscript","rrrrrole"],
-      singer: ["mmmmmelody","sssssong","vvvvvvoice"],
-      other: ["ssssstart","mmmmmove","rrrrrun"]
-    },
-    "Voiceless Prolongation": {
-      doctor: ["ssssscan","fffffirst","tttttest"],
-      engineer: ["sssssystem","ffffforce","tttttool"],
-      student: ["ssssstudy","fffffocus","ttttext"],
-      teacher: ["ssssslesson","ffffformat","ttttopic"],
-      advocate: ["ssssstatute","fffffile","ttttrial"],
-      tvactor: ["ssssscene","fffffade","tttttake"],
-      singer: ["sssssong","fffffill","tttttone"],
-      other: ["ssssstop","fffffast","tttttime"]
-    }
-  },
-  blocks: {
-    "Silent Block": {
-      doctor: ["(…patient)","(…scan)","(…report)","(…check)","(…wait)"],
-      engineer: ["(…compile)","(…deploy)","(…debug)","(…test)","(…run)"],
-      student: ["(…answer)","(…think)","(…write)","(…read)","(…speak)"],
-      teacher: ["(…explain)","(…lecture)","(…review)","(…pause)","(…listen)"],
-      advocate: ["(…object)","(…respond)","(…address)","(…present)","(…plead)"],
-      tvactor: ["(…action)","(…cut)","(…wait)","(…silent)","(…breathe)"],
-      singer: ["(…hold)","(…breathe)","(…wait)","(…note)","(…rest)"],
-      other: ["(…pause)","(…think)","(…wait)","(…stop)","(…silent)"]
-    },
-    "Audible Block": {
-      doctor: ["uh…doctor","um…clinic","eh…scan","ah…report","uh…nurse"],
-      engineer: ["uh…code","um…deploy","eh…test","ah…fix","uh…model"],
-      student: ["uh…answer","um…homework","eh…exam","ah…project","uh…study"],
-      teacher: ["uh…lesson","um…topic","eh…grammar","ah…explain","uh…question"],
-      advocate: ["uh…case","um…evidence","eh…witness","ah…plea","uh…judge"],
-      tvactor: ["uh…line","um…take","eh…action","ah…scene","uh…mark"],
-      singer: ["uh…note","um…sing","eh…tone","ah…pitch","uh…chorus"],
-      other: ["uh…hello","um…sorry","eh…wait","ah…okay","uh…thanks"]
-    },
-    "Word Stretching": {
-      doctor: ["soooo","welllll","ooookay","riiiight","breeeathe","staaay calm","heeeere","sloooowly","gooood","feeeling"],
-      advocate: ["youuuur","weeeell","soooo","riiiight","leeegal","claaaim","truuuuth","faaaacts","cleaaaar","prooof"],
-      engineer: ["looooad","cheeck","reeeeboot","soooftware","teeeest","staaart","ruuuun","waaait","syyyystem","cooode"],
-      teacher: ["reeepeat","foooocus","soooo","goooood","liiisten","reeeead","oooookay class","waaaait","aaagain","uunderstand"],
-      student: ["pleaaase","waaait","maaaam","siirrr","aaagain","I dooon't get it","heeeelp","reeeepeat","ooookay","riiiight"],
-      tvactor: ["liiine","aaaaaction","reeeeady","sloooow","faaster","sceeene","taaake","hooold","staaaart","cuuue"],
-      singer: ["soooo","nooote","haaaarmony","breeeathe","voooice","sloooow","teeeempo","riiiise","faalll","gloooow"],
-      other: ["soooo","riiiight","ooookay","waaaait","heeeey","noooo","yeeees","stoooop","goooood","coooome"]
-    }
-  },
-  broken: {
-    "Silent Break": {
-      doctor: ["pa—tient","me—dicine","di—agnose","re—port","su—rgerY"],
-      student: ["ex—am","pro—ject","stu—dy","re—vision","no—tes"],
-      teacher: ["les—son","ch—apter","ex—plain","re—view","te—ach"]
-    },
-    "Audible Break": {
-      doctor: ["pa—(uh)—tient","me—(um)—dicine","di—(eh)—agnose"],
-      student: ["ex—(uh)—am","pro—(um)—ject","stu—(eh)—dy"]
-    },
-    "Tension Break": {
-      doctor: ["pa—(pause)—tient","re—(tension)—port"],
-      student: ["ex—(pause)—am","pro—(tension)—ject"]
-    }
-  },
-  fillers: {
-    "Natural Fillers": {
-      doctor: ["um","uh","well","so","okay"],
-      advocate: ["um","uh","well","so","look"],
-      student: ["um","uh","like","you know","well"],
-      other: ["um","uh","okay","like","you know"]
-    },
-    "Avoidance Fillers": {
-      doctor: ["actually","basically","maybe","perhaps","right"],
-      advocate: ["actually","basically","perhaps","obviously","clearly"],
-      student: ["maybe","kinda","actually","sorta","like"],
-      other: ["maybe","actually","kinda","sorta","basically"]
-    }
-  },
-  revision: {
-    "Restarts": {
-      doctor: ["I need — I need to check","We should — we should review","Call — call the nurse"],
-      engineer: ["We must — we must test","Run — run the build","Deploy — deploy later"],
-      teacher: ["You will — you will learn","Read — read the chapter","Try — try the exercise"],
-      student: ["I will — I will study","I did — I did the assignment"]
-    },
-    "Substitutions": {
-      doctor: ["tablet → pill","injection → shot","report → file"],
-      student: ["exam → test","homework → assignment","project → task"]
-    }
-  },
-  cluttering: {
-    "Fast Rate": {
-      teacher: ["finishfast","talkfast","rushthrough","speedread","quicknote"],
-      student: ["rushstudy","fastwrite","speedsolve","fastread","hurryup"]
-    },
-    "Syllable Drops": {
-      doctor: ["pa-tient","di-agnosis","ther-a-pist"],
-      student: ["ex-am","pro-ject","home-work"]
-    },
-    "Disorganized Language": {
-      other: ["topic… notes… then… explain…","point… slide… then… stop"]
-    }
+// const data = {
+//   repetition: {
+//     "Sound Repetition": {
+//       doctor: ["scan","syringe","scope","saline","stent","swab","scanbed","sample","scale","stat"],
+//       advocate: ["section","sign","suit","statute","state","stage","send","serve","seal","see"],
+//       engineer: ["sensor","signal","server","switch","socket","segment","solder","scan","scale","sample"],
+//       teacher: ["study","syllabus","subject","session","sentence","solve","speak","score","spell","search"],
+//       student: ["study","solve","submit","score","skill","school","sample","session","spell","search"],
+//       tvactor: ["scene","script","shot","say","scene2","sound","signal","speak","stage","strike"],
+//       singer: ["sing","scale","sound","sustain","solo","soft","slide","shimmer","sample","signal"],
+//       other: ["start","stop","see","say","show","sell","serve","shift","share","shine"]
+//     },
+//     "Syllable Repetition": {
+//       doctor: ["pa-pa-tient","in-in-jection","ta-ta-blet","re-re-port","di-di-agnose","op-op-tion","cl-clinic","tu-tu-bes","va-va-lve","ec-ec-g"],
+//       advocate: ["pe-pe-tition","ar-ar-gument","ap-ap-peal","cli-cli-ent","do-do-cument","ju-ju-dge","st-statement","he-he-aring","ve-ve-rdict","co-co-urt"],
+//       engineer: ["ci-ci-rcuit","de-de-sign","so-software","mo-mo-dule","se-se-nsor","ar-ar-chive","te-te-sting","sy-sy-stem","ne-ne-twork","pr-pr-ototype"],
+//       teacher: ["le-le-sson","ch-cha-pter","su-subject","no-no-tebook","ex-ex-am","re-re-vision","pr-practice","as-as-ignment","gr-gra-mmar","th-theory"],
+//       student: ["ho-ho-mework","pro-pro-ject","ex-ex-am","no-no-tebook","re-re-vision","sta-station","le-le-sson","cl-cl-ass","su-su-bject","ta-ta-ble"],
+//       tvactor: ["di-di-alogue","sc-scene","sc-sc-ript","ac-ac-tion","au-au-diton","pe-pe-rformance","ma-ma-keup","ex-ex-pression","ch-ch-aracter","di-di-rector"],
+//       singer: ["me-me-lody","ry-ry-thm","pi-pitch","ho-ho-nor","no-no-te","so-so-nd","li-li-yrics","vo-vo-cal","ch-chorus","re-re-cord"],
+//       other: ["he-he-llo","ma-ma-rket","of-of-fice","tr-tra-vel","fa-fa-mily","sh-shopping","mo-mo-rning","fr-friend","di-dinner","mu-music"]
+//     },
+//     "Word Repetition": {
+//       doctor: ["pain", "pressure", "treatment", "test", "follow-up", "medicine", "monitor", "risk", "symptom", "improve"],
+//       advocate: ["evidence", "claim", "rights", "court", "case", "contract", "issue", "proof", "legal", "argument"],
+//       engineer: ["system", "process", "test", "design", "error", "function", "model", "update", "build", "check"],
+//       teacher: ["remember", "important", "example", "practice", "review", "focus", "repeat", "explain", "check", "understand"],
+//       student: ["question", "example", "notes", "assignment", "understand", "help", "practice", "class", "topic", "explain"],
+//       tvactor: ["line", "scene", "take", "emotion", "action", "camera", "timing", "cue", "script", "character"],
+//       singer: ["note", "pitch", "voice", "rhythm", "tempo", "breath", "tone", "repeat", "practice", "chorus"],
+//       other: ["really", "okay", "right", "just", "maybe", "again", "wait", "look", "actually", "sure"]
+//     },
+//     "Phrase Repetition": {
+//       doctor: [
+//         "take a deep breath","how are you feeling","follow this routine","let me check","come back for review",
+//         "take your medicine","drink plenty of water","let me explain","tell me your symptoms","don't worry"
+//       ],
+//       advocate: [
+//         "according to the law","in this case","as per the section","let me clarify","based on evidence",
+//         "in my opinion","as your counsel","we can appeal","facts of the case","legal rights involved"
+//       ],
+//       engineer: [
+//         "let's run a test","check the system","we need to debug","let’s review the design","update the version",
+//         "run the process again","check the logs","optimize the code","let me verify","it’s not working"
+//       ],
+//       teacher: [
+//         "pay attention","follow the instructions","listen carefully","let’s practice this","remember this point",
+//         "repeat after me","focus on this topic","check your work","understand the concept","read the question"
+//       ],
+//       student: [
+//         "I have a doubt","can you explain again","I don’t understand","one more example","is this correct",
+//         "what do we do next","can you repeat that","how do I solve this","I need help","what does this mean"
+//       ],
+//       tvactor: [
+//         "what’s my line","start from the top","let’s do another take","how’s my timing","what’s the emotion",
+//         "check the camera","let’s rehearse again","give me the cue","run the scene","I need direction"
+//       ],
+//       singer: [
+//         "start from the chorus","let’s try again","follow the rhythm","keep the tempo","take a deep breath",
+//         "hit the note","repeat the line","let’s harmonize","from the top","slow it down"
+//       ],
+//       other: [
+//         "one second","hold on","wait a minute","let me check","are you sure",
+//         "that’s okay","I think so","tell me again","do it again","let's go"
+//       ]
+//     }
+//   },
+//   prolongation: {
+//     "Voiced Prolongation": {
+//       doctor: ["mmmmmedicine","aaaaarm","rrrrreport","lllllungs","vvvvvital"],
+//       engineer: ["rrrrrobot","vvvvvoltage","mmmmmodule","sssssignal"],
+//       student: ["ssssstudy","mmmmmaths","rrrrreading"],
+//       teacher: ["llllllllesson","mmmmmaterial","sssssubject"],
+//       advocate: ["lllllaw","rrrrrreason","vvvvverdict"],
+//       tvactor: ["mmmmmmic","ssssscript","rrrrrole"],
+//       singer: ["mmmmmelody","sssssong","vvvvvvoice"],
+//       other: ["ssssstart","mmmmmove","rrrrrun"]
+//     },
+//     "Voiceless Prolongation": {
+//       doctor: ["ssssscan","fffffirst","tttttest"],
+//       engineer: ["sssssystem","ffffforce","tttttool"],
+//       student: ["ssssstudy","fffffocus","ttttext"],
+//       teacher: ["ssssslesson","ffffformat","ttttopic"],
+//       advocate: ["ssssstatute","fffffile","ttttrial"],
+//       tvactor: ["ssssscene","fffffade","tttttake"],
+//       singer: ["sssssong","fffffill","tttttone"],
+//       other: ["ssssstop","fffffast","tttttime"]
+//     }
+//   },
+//   blocks: {
+//     "Silent Block": {
+//       doctor: ["(…patient)","(…scan)","(…report)","(…check)","(…wait)"],
+//       engineer: ["(…compile)","(…deploy)","(…debug)","(…test)","(…run)"],
+//       student: ["(…answer)","(…think)","(…write)","(…read)","(…speak)"],
+//       teacher: ["(…explain)","(…lecture)","(…review)","(…pause)","(…listen)"],
+//       advocate: ["(…object)","(…respond)","(…address)","(…present)","(…plead)"],
+//       tvactor: ["(…action)","(…cut)","(…wait)","(…silent)","(…breathe)"],
+//       singer: ["(…hold)","(…breathe)","(…wait)","(…note)","(…rest)"],
+//       other: ["(…pause)","(…think)","(…wait)","(…stop)","(…silent)"]
+//     },
+//     "Audible Block": {
+//       doctor: ["uh…doctor","um…clinic","eh…scan","ah…report","uh…nurse"],
+//       engineer: ["uh…code","um…deploy","eh…test","ah…fix","uh…model"],
+//       student: ["uh…answer","um…homework","eh…exam","ah…project","uh…study"],
+//       teacher: ["uh…lesson","um…topic","eh…grammar","ah…explain","uh…question"],
+//       advocate: ["uh…case","um…evidence","eh…witness","ah…plea","uh…judge"],
+//       tvactor: ["uh…line","um…take","eh…action","ah…scene","uh…mark"],
+//       singer: ["uh…note","um…sing","eh…tone","ah…pitch","uh…chorus"],
+//       other: ["uh…hello","um…sorry","eh…wait","ah…okay","uh…thanks"]
+//     },
+//     "Word Stretching": {
+//       doctor: ["soooo","welllll","ooookay","riiiight","breeeathe","staaay calm","heeeere","sloooowly","gooood","feeeling"],
+//       advocate: ["youuuur","weeeell","soooo","riiiight","leeegal","claaaim","truuuuth","faaaacts","cleaaaar","prooof"],
+//       engineer: ["looooad","cheeck","reeeeboot","soooftware","teeeest","staaart","ruuuun","waaait","syyyystem","cooode"],
+//       teacher: ["reeepeat","foooocus","soooo","goooood","liiisten","reeeead","oooookay class","waaaait","aaagain","uunderstand"],
+//       student: ["pleaaase","waaait","maaaam","siirrr","aaagain","I dooon't get it","heeeelp","reeeepeat","ooookay","riiiight"],
+//       tvactor: ["liiine","aaaaaction","reeeeady","sloooow","faaster","sceeene","taaake","hooold","staaaart","cuuue"],
+//       singer: ["soooo","nooote","haaaarmony","breeeathe","voooice","sloooow","teeeempo","riiiise","faalll","gloooow"],
+//       other: ["soooo","riiiight","ooookay","waaaait","heeeey","noooo","yeeees","stoooop","goooood","coooome"]
+//     }
+//   },
+//   broken: {
+//     "Silent Break": {
+//       doctor: ["pa—tient","me—dicine","di—agnose","re—port","su—rgerY"],
+//       student: ["ex—am","pro—ject","stu—dy","re—vision","no—tes"],
+//       teacher: ["les—son","ch—apter","ex—plain","re—view","te—ach"]
+//     },
+//     "Audible Break": {
+//       doctor: ["pa—(uh)—tient","me—(um)—dicine","di—(eh)—agnose"],
+//       student: ["ex—(uh)—am","pro—(um)—ject","stu—(eh)—dy"]
+//     },
+//     "Tension Break": {
+//       doctor: ["pa—(pause)—tient","re—(tension)—port"],
+//       student: ["ex—(pause)—am","pro—(tension)—ject"]
+//     }
+//   },
+//   fillers: {
+//     "Natural Fillers": {
+//       doctor: ["um","uh","well","so","okay"],
+//       advocate: ["um","uh","well","so","look"],
+//       student: ["um","uh","like","you know","well"],
+//       other: ["um","uh","okay","like","you know"]
+//     },
+//     "Avoidance Fillers": {
+//       doctor: ["actually","basically","maybe","perhaps","right"],
+//       advocate: ["actually","basically","perhaps","obviously","clearly"],
+//       student: ["maybe","kinda","actually","sorta","like"],
+//       other: ["maybe","actually","kinda","sorta","basically"]
+//     }
+//   },
+//   revision: {
+//     "Restarts": {
+//       doctor: ["I need — I need to check","We should — we should review","Call — call the nurse"],
+//       engineer: ["We must — we must test","Run — run the build","Deploy — deploy later"],
+//       teacher: ["You will — you will learn","Read — read the chapter","Try — try the exercise"],
+//       student: ["I will — I will study","I did — I did the assignment"]
+//     },
+//     "Substitutions": {
+//       doctor: ["tablet → pill","injection → shot","report → file"],
+//       student: ["exam → test","homework → assignment","project → task"]
+//     }
+//   },
+//   cluttering: {
+//     "Fast Rate": {
+//       teacher: ["finishfast","talkfast","rushthrough","speedread","quicknote"],
+//       student: ["rushstudy","fastwrite","speedsolve","fastread","hurryup"]
+//     },
+//     "Syllable Drops": {
+//       doctor: ["pa-tient","di-agnosis","ther-a-pist"],
+//       student: ["ex-am","pro-ject","home-work"]
+//     },
+//     "Disorganized Language": {
+//       other: ["topic… notes… then… explain…","point… slide… then… stop"]
+//     }
+//   }
+// };
+
+let data = {}; // empty initially
+
+async function loadData() {
+  try {
+    const response = await fetch('data.json');
+    if (!response.ok) throw new Error('Failed to load data');
+    data = await response.json();
+    showNotAvailable(); // show initial message
+  } catch (error) {
+    console.error('Error loading JSON:', error);
+    wordBoxInner.innerHTML = '<div class="not-available">Data could not be loaded</div>';
   }
-};
+}
+
+loadData();
+
 
 /* ============================
    Elements
