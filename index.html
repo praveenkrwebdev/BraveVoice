@@ -641,22 +641,48 @@ function loadSubTypes(){
   showNotAvailable();
 }
 
-function startPractice(){
+// function startPractice(){
+//   stopPractice();
+//   const t = typeSelect.value;
+//   const sub = subTypeSelect.value;
+//   const prof = professionSelect.value;
+
+//   if(!t||!sub||!prof){ showNotAvailable(); return; }
+//   updateMeta();
+
+//   const list = data[t]?.[sub]?.[prof] || [];
+//   if(!list.length){ showNotAvailable(); return; }
+
+//   currentList = list.slice();
+//   currentIndex = 0;
+//   playSequence();
+// }
+
+  function startPractice(){
   stopPractice();
   const t = typeSelect.value;
   const sub = subTypeSelect.value;
   const prof = professionSelect.value;
 
-  if(!t||!sub||!prof){ showNotAvailable(); return; }
+  if(!t || !sub || !prof){ 
+    showNotAvailable(); 
+    return; 
+  }
   updateMeta();
 
   const list = data[t]?.[sub]?.[prof] || [];
-  if(!list.length){ showNotAvailable(); return; }
+  
+  if(!list.length){ 
+    wordBoxInner.innerHTML = '<div class="not-available">Not Available for this profession</div>';
+    progressBar.style.width = '0%';
+    return; 
+  }
 
   currentList = list.slice();
   currentIndex = 0;
   playSequence();
 }
+
 
 function playSequence(){
   stopPractice();
