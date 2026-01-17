@@ -789,8 +789,18 @@ function reflectState(){
    Events
 ============================= */
 typeSelect.addEventListener('change', loadSubTypes);
-subTypeSelect.addEventListener('change', startPractice);
-professionSelect.addEventListener('change', startPractice);
+// subTypeSelect.addEventListener('change', startPractice);
+  subTypeSelect.addEventListener('change', () => {
+  startPractice();
+  playSequence();   // 🔥 auto start
+});
+
+// professionSelect.addEventListener('change', startPractice);
+  professionSelect.addEventListener('change', () => {
+  startPractice();
+  playSequence();   // 🔥 auto start
+});
+
 
 playBtn.addEventListener('click', ()=> isPlaying ? pauseSequence() : playSequence());
 pauseBtn.addEventListener('click', pauseSequence);
