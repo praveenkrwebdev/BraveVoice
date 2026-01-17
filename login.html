@@ -30,55 +30,48 @@
 </head>
 
 <body>
+<div class="auth-container">
+  <div class="auth-card">
 
-  <main class="auth-page">
-    <div class="auth-container">
+    <h2>Welcome to BraveVoice</h2>
+    <p class="subtitle">Practice at your own pace. We’re here to help</p>
 
-      <div class="auth-card">
-
-        <h2>Welcome to BraveVoice</h2>
-        <p class="subtitle">Practice at your own pace. We’re here to help.</p>
-
-        <!-- Email -->
-        <div class="field">
-          <input type="email" id="email" placeholder=" " />
-          <label>Email address</label>
-          <small class="field-error"></small>
-        </div>
-
-        <!-- Password -->
-        <div class="field password-wrapper">
-          <input type="password" id="password" placeholder=" " />
-          <label>Password</label>
-          <span class="toggle-password" onclick="togglePassword()">👁️</span>
-          <small class="field-error"></small>
-        </div>
-
-        <button class="forgot" onclick="resetPassword()">Forgot password?</button>
-
-        <button class="primary" onclick="login()">Login</button>
-        <button class="secondary" onclick="location.href='signup.html'">
-          Create account
-        </button>
-
-        <div class="divider"><span>OR</span></div>
-
-        <button class="google" onclick="googleLogin()">
-          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="">
-          Continue with Google
-        </button>
-
-      </div>
-
+    <div class="field">
+      <input type="email" id="email" placeholder=" " />
+      <label>Email address</label>
+      <small class="field-error"></small>
     </div>
-  </main>
 
-  <footer class="auth-footer">
-    Clinically designed by Speech and Language Therapist |
-    Developed by
-    <a href="https://www.artsbypraveen.in/" target="_blank">Praveen Sharma</a>
-  </footer>
+    <div class="field password-wrapper">
+      <input type="password" id="password" placeholder=" " />
+      <label>Password</label>
+      <span class="toggle-password" onclick="togglePassword()">👁️</span>
+      <small class="field-error"></small>
+    </div>
 
-  <script type="module" src="js/auth.js"></script>
+    <button class="forgot" onclick="resetPassword()">Forgot password?</button>
+
+    <button class="primary" onclick="login()">Login</button>
+
+    <button class="secondary" onclick="location.href='signup.html'">
+      Create account
+    </button>
+
+    <div class="divider"><span>OR</span></div>
+
+    <button class="google" onclick="googleLogin()">
+      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg">
+      Continue with Google
+    </button>
+
+  </div>
+</div>
+
+<footer class="auth-footer">
+  Clinically designed by Speech and language therapist |
+  Developed by <a href="https://www.artsbypraveen.in/" target="_blank">Praveen Sharma</a>
+</footer>
+
+<script type="module" src="js/auth.js"></script>
 </body>
 </html>
