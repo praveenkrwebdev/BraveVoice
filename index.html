@@ -578,203 +578,189 @@
 //   }
 // };
 
+let data = {}; // empty initially
 
-/* ============================
-   GLOBAL DATA
-============================= */
-let data = {};
-let currentList = [];
-let currentIndex = 0;
-let playInterval = null;
-let isPlaying = false;
-
-/* ============================
-   ELEMENTS
-============================= */
-const typeSelect = document.getElementById('typeSelect');
-const subTypeSelect = document.getElementById('subTypeSelect');
-const professionSelect = document.getElementById('professionSelect');
-
-const wordBoxInner = document.getElementById('wordBoxInner');
-const metaType = document.getElementById('metaType');
-const metaSub = document.getElementById('metaSub');
-const progressBar = document.getElementById('progressBar');
-
-const playBtn = document.getElementById('playBtn');
-const pauseBtn = document.getElementById('pauseBtn');
-const nextBtn = document.getElementById('nextBtn');
-const resetBtn = document.getElementById('resetBtn');
-
-const speedRange = document.getElementById('speedRange');
-const speedIcon = document.getElementById('speedIcon');
-
-/* ============================
-   LOAD JSON
-============================= */
 async function loadData() {
   try {
-    const res = await fetch('data.json');
-    if (!res.ok) throw new Error('Failed to load JSON');
-    data = await res.json();
-    showNotAvailable();
-  } catch (err) {
-    console.error(err);
-    wordBoxInner.innerHTML =
-      '<div class="not-available">Data could not be loaded</div>';
+    const response = await fetch('data.json');
+    if (!response.ok) throw new Error('Failed to load data');
+    data = await response.json();
+    showNotAvailable(); // show initial message
+  } catch (error) {
+    console.error('Error loading JSON:', error);
+    wordBoxInner.innerHTML = '<div class="not-available">Data could not be loaded</div>';
   }
 }
 
 loadData();
 
+
 /* ============================
-   UI HELPERS
+   Elements
 ============================= */
-function showNotAvailable() {
-  wordBoxInner.innerHTML =
-    '<div class="not-available">Select Type, Sub-Type and Profession</div>';
+const typeSelect = document.getElementById('typeSelect');
+const subTypeSelect = document.getElementById('subTypeSelect');
+const professionSelect = document.getElementById('professionSelect');
+const wordBoxInner = document.getElementById('wordBoxInner');
+const metaType = document.getElementById('metaType');
+const metaSub = document.getElementById('metaSub');
+const progressBar = document.getElementById('progressBar');
+const playBtn = document.getElementById('playBtn');
+const pauseBtn = document.getElementById('pauseBtn');
+const nextBtn = document.getElementById('nextBtn');
+const resetBtn = document.getElementById('resetBtn');
+const speedRange = document.getElementById('speedRange');
+const speedIcon = document.getElementById('speedIcon');
+
+let playInterval = null;
+let currentList = [];
+let currentIndex = 0;
+let isPlaying = false;
+
+/* ============================
+   Functions
+============================= */
+
+function updateSpeedIcon(){
+  const v = Number(speedRange.value);
+
+  if (v >= 5.5) speedIcon.textContent = '🐌';      // very slow
+  else if (v >= 4.5) speedIcon.textContent = '🐢';      // very slow
+  else if (v >= 3.5) speedIcon.textContent = '🚶'; // medium
+  else if (v >= 2.5) speedIcon.textContent = '🏃'; // medium
+  else speedIcon.textContent = '🐇';             // fast
+} 
+  
+function showNotAvailable(){
+  wordBoxInner.innerHTML = '<div class="not-available">Select a Type and Sub-Type to begin practice</div>';
   progressBar.style.width = '0%';
   metaType.textContent = 'Type: —';
   metaSub.textContent = 'Sub-Type: —';
 }
 
-function updateMeta() {
+function updateMeta(){
   metaType.textContent = 'Type: ' + (typeSelect.value || '—');
   metaSub.textContent = 'Sub-Type: ' + (subTypeSelect.value || '—');
 }
 
-function updateSpeedIcon() {
-  const v = Number(speedRange.value);
-  if (v >= 5.5) speedIcon.textContent = '🐌';
-  else if (v >= 4.5) speedIcon.textContent = '🐢';
-  else if (v >= 3.5) speedIcon.textContent = '🚶';
-  else if (v >= 2.5) speedIcon.textContent = '🏃';
-  else speedIcon.textContent = '🐇';
-}
-
-/* ============================
-   CONTROL STATE
-============================= */
-function updateControlsState() {
-  const enabled =
-    typeSelect.value &&
-    subTypeSelect.value &&
-    professionSelect.value &&
-    currentList.length;
-
-  [playBtn, pauseBtn, nextBtn, resetBtn].forEach(btn => {
-    btn.disabled = !enabled;
-    btn.style.opacity = enabled ? '1' : '0.4';
-    btn.style.pointerEvents = enabled ? 'auto' : 'none';
-  });
-}
-
-/* ============================
-   SUB-TYPE LOADER
-============================= */
-function loadSubTypes() {
-  stopPractice();
-  subTypeSelect.innerHTML =
-    '<option value="">-- Select Sub-Type --</option>';
-
+function loadSubTypes(){
   const t = typeSelect.value;
+  subTypeSelect.innerHTML = '<option value="">-- Select Sub-Type --</option>';
+  stopPractice();
   updateMeta();
 
-  if (!t || !data[t]) {
-    showNotAvailable();
-    updateControlsState();
-    return;
-  }
-
-  Object.keys(data[t]).forEach(sub => {
-    const opt = document.createElement('option');
-    opt.value = sub;
-    opt.textContent = sub;
+  if(!t || !data[t]) { showNotAvailable(); return; }
+  Object.keys(data[t]).forEach(sub=>{
+    const opt=document.createElement('option');
+    opt.value=sub; opt.textContent=sub;
     subTypeSelect.appendChild(opt);
   });
-
   showNotAvailable();
-  updateControlsState();
 }
 
-/* ============================
-   PRACTICE LOGIC
-============================= */
-function startPractice() {
+function startPractice(){
   stopPractice();
-
   const t = typeSelect.value;
   const sub = subTypeSelect.value;
   const prof = professionSelect.value;
+  console.log(t);
+  console.log(sub);
+  console.log(prof);
 
-  if (!t || !sub || !prof) {
-    showNotAvailable();
-    updateControlsState();
-    return;
-  }
+  if(!t||!sub||!prof){ showNotAvailable(); return; }
+  updateMeta();
 
   const list = data[t]?.[sub]?.[prof] || [];
-  if (!list.length) {
-    wordBoxInner.innerHTML =
-      '<div class="not-available">Not available for this profession</div>';
-    updateControlsState();
-    return;
-  }
+  if(!list.length){ showNotAvailable(); return; }
 
-  currentList = [...list];
+  currentList = list.slice();
   currentIndex = 0;
-  updateMeta();
-  updateControlsState();
+  playSequence();
 }
 
-function playSequence() {
-  if (!currentList.length) return;
+//   function startPractice(){
+//   stopPractice();
+//   const t = typeSelect.value;
+//   const sub = subTypeSelect.value;
+//   const prof = professionSelect.value;
 
+//   if(!t || !sub || !prof){ 
+//     showNotAvailable(); 
+//     return; 
+//   }
+//   updateMeta();
+
+//   const list = data[t]?.[sub]?.[prof] || [];
+  
+//   if(!list.length){ 
+//     wordBoxInner.innerHTML = '<div class="not-available">Not Available for this profession</div>';
+//     progressBar.style.width = '0%';
+//     return; 
+//   }
+
+//   currentList = list.slice();
+//   currentIndex = 0;
+//   playSequence();
+// }
+
+
+function playSequence(){
   stopPractice();
+  if(!currentList.length) return;
+
   isPlaying = true;
   showNextWord();
 
-  const delay = Number(speedRange.value) * 1000 + 200;
-  playInterval = setInterval(showNextWord, delay);
+  const seconds = Number(speedRange.value) || 4;
+  playInterval = setInterval(showNextWord, (seconds * 1000) + 200);
 
   reflectState();
 }
 
-function pauseSequence() {
+function pauseSequence(){
   isPlaying = false;
-  clearInterval(playInterval);
-  playInterval = null;
+  if(playInterval){ clearInterval(playInterval); playInterval=null; }
   reflectState();
 }
 
-function stopPractice() {
+function stopPractice(){
   isPlaying = false;
-  clearInterval(playInterval);
-  playInterval = null;
+  if(playInterval){ clearInterval(playInterval); playInterval=null; }
   progressBar.style.width = '0%';
   reflectState();
 }
 
-function nextWord() {
-  if (!currentList.length) return;
+function resetAll(){
+  stopPractice();
+  typeSelect.selectedIndex = 0;
+  subTypeSelect.innerHTML = '<option value="">-- Select Sub-Type --</option>';
+  professionSelect.selectedIndex = 0;
+  wordBoxInner.innerHTML = '';
+  metaType.textContent="Type: —";
+  metaSub.textContent="Sub-Type: —";
+}
+
+function nextWord(){
+  if(!currentList.length) return;
   currentIndex = (currentIndex + 1) % currentList.length;
+  showSpecificWord();
+}
+
+function showNextWord(){
+  const w = currentList[currentIndex];
+  currentIndex = (currentIndex + 1) % currentList.length;
+  displayWord(w);
+}
+
+function showSpecificWord(){
   displayWord(currentList[currentIndex]);
 }
 
-function showNextWord() {
-  const word = currentList[currentIndex];
-  currentIndex = (currentIndex + 1) % currentList.length;
-  displayWord(word);
-}
-
-/* ============================
-   DISPLAY WORD
-============================= */
-function displayWord(text) {
+function displayWord(text){
   wordBoxInner.innerHTML = '';
-
   const span = document.createElement('span');
-  span.className = 'word';
-  span.textContent = text;
+  span.className='word';
+  span.textContent=text;
   wordBoxInner.appendChild(span);
 
   span.classList.remove('reveal');
@@ -782,73 +768,73 @@ function displayWord(text) {
   span.classList.add('reveal');
 
   const seconds = Number(speedRange.value);
-  progressBar.style.transition = 'none';
-  progressBar.style.width = '0%';
+  progressBar.style.transition='none';
+  progressBar.style.width='0%';
   void progressBar.offsetWidth;
-  progressBar.style.transition = `width ${seconds}s linear`;
-  progressBar.style.width = '100%';
+  progressBar.style.transition=`width ${seconds}s linear`;
+  progressBar.style.width='100%';
 }
 
-function reflectState() {
+function reflectState(){
   playBtn.textContent = isPlaying ? '▶ Playing' : '▶ Play';
 }
 
-/* ============================
-   RESET
-============================= */
-function resetAll() {
-  stopPractice();
-  typeSelect.selectedIndex = 0;
-  subTypeSelect.innerHTML =
-    '<option value="">-- Select Sub-Type --</option>';
-  professionSelect.selectedIndex = 0;
-  currentList = [];
-  showNotAvailable();
-  updateControlsState();
-}
 
 /* ============================
-   EVENTS
+   Events
 ============================= */
 typeSelect.addEventListener('change', loadSubTypes);
+subTypeSelect.addEventListener('change', startPractice);
+professionSelect.addEventListener('change', startPractice);
 
-subTypeSelect.addEventListener('change', () => {
-  startPractice();
-  updateControlsState();
-});
-
-professionSelect.addEventListener('change', () => {
-  startPractice();
-  updateControlsState();
-});
-
-playBtn.addEventListener('click', () => {
-  if (!currentList.length) return;
-  isPlaying ? pauseSequence() : playSequence();
-});
-
+playBtn.addEventListener('click', ()=> isPlaying ? pauseSequence() : playSequence());
 pauseBtn.addEventListener('click', pauseSequence);
 nextBtn.addEventListener('click', nextWord);
 resetBtn.addEventListener('click', resetAll);
 
-speedRange.addEventListener('input', () => {
+speedRange.addEventListener('input', ()=>{
   updateSpeedIcon();
-  if (isPlaying) {
-    pauseSequence();
-    playSequence();
-  }
+  if(isPlaying){ pauseSequence(); playSequence(); }
 });
 
-/* ============================
-   INIT
-============================= */
-updateSpeedIcon();
-updateControlsState();
+showNotAvailable();
+reflectState();
 
-/* 🔥 IMPORTANT: show page */
-window.addEventListener('load', () => {
-  document.body.style.visibility = 'visible';
-});
+  
+</script>
+
+<!-- FOOTER -->
+<footer class="app-footer">
+  <p>
+    © 2025 • Designed & Developed by 
+    <a href="https://www.artsbypraveen.in/" target="_blank">Praveen Sharma</a>
+  </p>
+</footer>
+
+
+<script type="module" src="js/guard.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const professionSelect = document.getElementById("professionSelect");
+    const stage = document.getElementById("practice-stage");
+
+    if (!professionSelect || !stage) return;
+
+    professionSelect.addEventListener("change", () => {
+      // Mobile only
+      if (window.innerWidth > 768) return;
+
+      // Ensure a real value is selected
+      if (!professionSelect.value) return;
+
+      setTimeout(() => {
+        stage.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      }, 150);
+    });
+  });
 </script>
 
 
