@@ -658,27 +658,7 @@ function loadSubTypes(){
   showNotAvailable();
 }
 
-// function startPractice(){
-//   stopPractice();
-//   const t = typeSelect.value;
-//   const sub = subTypeSelect.value;
-//   const prof = professionSelect.value;
-//   console.log(t);
-//   console.log(sub);
-//   console.log(prof);
-
-//   if(!t||!sub||!prof){ showNotAvailable(); return; }
-//   updateMeta();
-
-//   const list = data[t]?.[sub]?.[prof] || [];
-//   if(!list.length){ showNotAvailable(); return; }
-
-//   currentList = list.slice();
-//   currentIndex = 0;
-//   playSequence();
-// }
-
-  function startPractice(){
+function startPractice(){
   stopPractice();
   const t = typeSelect.value;
   const sub = subTypeSelect.value;
@@ -687,25 +667,41 @@ function loadSubTypes(){
   console.log(sub);
   console.log(prof);
 
-  if(!t || !sub || !prof){ 
-    showNotAvailable(); 
-    return; 
-  }
+  if(!t||!sub||!prof){ showNotAvailable(); return; }
   updateMeta();
 
   const list = data[t]?.[sub]?.[prof] || [];
-  
-  if(!list.length){ 
-    wordBoxInner.innerHTML = '<div class="not-available">Not Available for this profession</div>';
-    progressBar.style.width = '0%';
-    return; 
-  }
+  if(!list.length){ showNotAvailable(); return; }
 
   currentList = list.slice();
   currentIndex = 0;
-  isPlaying = true;       // ✅ IMPORTANT
   playSequence();
-  console.log("bhufguhbvfhdbvhfbh");
+}
+
+//   function startPractice(){
+//   stopPractice();
+//   const t = typeSelect.value;
+//   const sub = subTypeSelect.value;
+//   const prof = professionSelect.value;
+
+//   if(!t || !sub || !prof){ 
+//     showNotAvailable(); 
+//     return; 
+//   }
+//   updateMeta();
+
+//   const list = data[t]?.[sub]?.[prof] || [];
+  
+//   if(!list.length){ 
+//     wordBoxInner.innerHTML = '<div class="not-available">Not Available for this profession</div>';
+//     progressBar.style.width = '0%';
+//     return; 
+//   }
+
+//   currentList = list.slice();
+//   currentIndex = 0;
+//   playSequence();
+// }
 
 
 function playSequence(){
@@ -811,7 +807,7 @@ reflectState();
 <footer class="app-footer">
   <p>
     © 2025 • Designed & Developed by 
-    <a href="https://www.artsbypraveen.in/" target="_blank">Praveen Sharma ...rhvherv</a>
+    <a href="https://www.artsbypraveen.in/" target="_blank">Praveen Sharma</a>
   </p>
 </footer>
 
