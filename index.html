@@ -638,25 +638,53 @@ function showNotAvailable(){
   metaSub.textContent = 'Sub-Type: —';
 }
 
+function clearPracticeState() {
+  stopPractice();
+  currentList = [];
+  currentIndex = 0;
+  wordBoxInner.innerHTML = '<div class="not-available">Select a Type and Sub-Type to begin practice</div>';
+  progressBar.style.width = '0%';
+}
+  
+
 function updateMeta(){
   metaType.textContent = 'Type: ' + (typeSelect.value || '—');
   metaSub.textContent = 'Sub-Type: ' + (subTypeSelect.value || '—');
 }
 
-function loadSubTypes(){
+// function loadSubTypes(){
+//   const t = typeSelect.value;
+//   subTypeSelect.innerHTML = '<option value="">-- Select Sub-Type --</option>';
+//   stopPractice();
+//   updateMeta();
+
+//   if(!t || !data[t]) { showNotAvailable(); return; }
+//   Object.keys(data[t]).forEach(sub=>{
+//     const opt=document.createElement('option');
+//     opt.value=sub; opt.textContent=sub;
+//     subTypeSelect.appendChild(opt);
+//   });
+//   showNotAvailable();
+// }
+
+  function loadSubTypes(){
   const t = typeSelect.value;
+
+  clearPracticeState(); // 🔥 IMPORTANT
+
   subTypeSelect.innerHTML = '<option value="">-- Select Sub-Type --</option>';
-  stopPractice();
   updateMeta();
 
-  if(!t || !data[t]) { showNotAvailable(); return; }
+  if(!t || !data[t]) return;
+
   Object.keys(data[t]).forEach(sub=>{
-    const opt=document.createElement('option');
-    opt.value=sub; opt.textContent=sub;
+    const opt = document.createElement('option');
+    opt.value = sub;
+    opt.textContent = sub;
     subTypeSelect.appendChild(opt);
   });
-  showNotAvailable();
 }
+
 
 function startPractice(){
   stopPractice();
@@ -704,10 +732,23 @@ function startPractice(){
 // }
 
 
-function playSequence(){
-  stopPractice();
-  if(!currentList.length) return;
+// function playSequence(){
+//   stopPractice();
+//   if(!currentList.length) return;
 
+//   isPlaying = true;
+//   showNextWord();
+
+//   const seconds = Number(speedRange.value) || 4;
+//   playInterval = setInterval(showNextWord, (seconds * 1000) + 200);
+
+//   reflectState();
+// }
+
+  function playSequence(){
+  if (!currentList.length) return; // 🚫 no stale play
+
+  stopPractice();
   isPlaying = true;
   showNextWord();
 
@@ -716,6 +757,7 @@ function playSequence(){
 
   reflectState();
 }
+
 
 function pauseSequence(){
   isPlaying = false;
@@ -784,7 +826,12 @@ function reflectState(){
    Events
 ============================= */
 typeSelect.addEventListener('change', loadSubTypes);
-subTypeSelect.addEventListener('change', startPractice);
+// subTypeSelect.addEventListener('change', startPractice);
+  subTypeSelect.addEventListener('change', () => {
+  clearPracticeState();
+  startPractice();
+});
+
 professionSelect.addEventListener('change', startPractice);
 
 playBtn.addEventListener('click', ()=> isPlaying ? pauseSequence() : playSequence());
