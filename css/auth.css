@@ -16,16 +16,15 @@ body {
 
 /* ---------- CONTAINER ---------- */
 .auth-container {
-  min-height: 100svh;
+  min-height: 100dvh;
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
   padding: 24px;
 }
 
 /* ---------- CARD ---------- */
 .auth-card {
+  margin: auto 0;
   width: 100%;
   max-width: 320px;
   padding: 28px 26px 26px;
@@ -275,16 +274,25 @@ button:active {
   opacity: 1;
 }
 
+
+@media (max-width: 768px) {
+
+  .auth-container {
+    min-height: 100dvh;
+  }
+
+  .auth-footer {
+    position: static;
+    margin-top: auto;   /* 👈 pushes footer to bottom */
+    padding: 20px 20px;
+  }
+}
+
+
 /* ---------- MOBILE ---------- */
 @media (max-width: 420px) {
   .auth-card {
     padding: 26px 22px 24px;
-  }
-
-  .auth-footer {
-    padding: 0 40px;
-    position: static;   /* remove fixed behavior */
-    margin-top: 10px;   /* push below card */
   }
 }
 
